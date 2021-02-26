@@ -1,7 +1,7 @@
 CREATE TABLE "users" (
 	"userId" serial NOT NULL,
 	"email" TEXT NOT NULL,
-	"hashedpassword" TEXT NOT NULL,
+	"hashedPassword" TEXT NOT NULL,
 	"createdAt" TIMESTAMP NOT NULL DEFAULT NOW(),
 	CONSTRAINT "users_pk" PRIMARY KEY ("userId")
 ) WITH (
