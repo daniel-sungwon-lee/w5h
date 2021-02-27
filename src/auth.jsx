@@ -1,12 +1,7 @@
+import './App.css';
 import React, { Component } from 'react';
 import { TextField, IconButton } from '@material-ui/core';
 import { ExitToAppRounded, PersonAddRounded, ArrowBackRounded } from '@material-ui/icons'
-
-const form = {
-  background: "#D5F7C6",
-  borderRadius: "3rem",
-  margin: "0 3rem"
-}
 
 export default class Auth extends Component {
   constructor(props) {
@@ -96,13 +91,13 @@ export default class Auth extends Component {
       return (
         <div className="container d-flex flex-wrap justify-content-center" style={{paddingBottom: "7rem"}}>
           <div className="w-100 text-center m-5">
-            <img width="250" src="/images/w5h.png" alt="W5H logo" />
+            <img className="logo" width="250" src="/images/w5h.png" alt="W5H logo" />
           </div>
           <div className="w-100 mx-5 mb-4">
-            <h2>Hello, Job Seekers</h2>
-            <h2>Sign in to get started</h2>
+            <h2 className="auth-header">Hello, Job Seekers</h2>
+            <h2 className="auth-header">Sign in to get started</h2>
           </div>
-          <div className="w-100 p-5 text-center" style={form}>
+          <div className="w-100 p-5 text-center form-div">
             <form onSubmit = {this.handleLogin} className="d-flex flex-column">
               <div className="d-flex flex-column align-items-center">
 
@@ -134,13 +129,13 @@ export default class Auth extends Component {
       return (
         <div className="container d-flex flex-wrap justify-content-center" style={{ paddingBottom: "7rem" }}>
           <div className="w-100 text-center m-5">
-            <img width="250" src="/images/w5h.png" alt="W5H logo" />
+            <img className="logo" width="250" src="/images/w5h.png" alt="W5H logo" />
           </div>
           <div className="w-100 mx-5 mb-4">
-            <h2>Sign up</h2>
-            <h2 className="invisible">hehe</h2>
+            <h2 className="auth-header">Sign up</h2>
+            <h2 className="invisible auth-header">hehe</h2>
           </div>
-          <div className="w-100 p-5 text-center" style={form}>
+          <div className="w-100 p-5 text-center form-div">
             <form onSubmit={this.handleSignUp} className="d-flex flex-column">
               <div className="d-flex flex-column align-items-center">
 

@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
-import { Drawer, IconButton, List, ListItem } from '@material-ui/core';
-import { MenuRounded } from '@material-ui/icons';
+import { Drawer, IconButton, List, ListItem, Fab } from '@material-ui/core';
+import { MenuRounded, AddRounded } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
   list: {
     width: "250px",
+  },
+  fab: {
+    background: "#D5F7C6",
+
   }
 });
 
@@ -43,6 +47,9 @@ export default function Home (props) {
           </List>
         </div>
       </Drawer>
+      <Fab className={classes.fab}>
+        <AddRounded />
+      </Fab>
     </div>
   )
 }
