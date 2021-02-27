@@ -43,11 +43,39 @@ app.post('/api/signUp', (req, res, next) => {
 });
 
 app.post('/api/login', (req, res, next) => {
+  const { email, password } = req.body;
 
+  const sql = `
+  select "userId", "hashedPassword", "email"
+  from "users"
+  where "email" = $1
+  `;
+  const params = [email];
+
+  db.query(sql, params)
+    .then(result => {
+      const [user] = result.rows;
+      if (!user) {
+        throw new ClientError(401, 'invalid login');
+      }
+      const { userId, hashedPassword, email } = user;
+      argon2
+        .verify(hashedPassword, password)
+        .then(isMatch => {
+          if (!isMatch) {
+            throw new ClientError(401, 'invalid login');
+          }
+          const payload = { userId, email };
+          const token = jwt.sign(payload, process.env.TOKEN_SECRET);
+          res.json({ token, user: payload });
+        })
+        .catch(err => next(err));
+    })
+    .catch(err => next(err));
 });
 
 app.use(errorMiddleware);
 
-app.listen(process.env.PORT, () => {
-  console.log(`express server listening on ${process.env.PORT}`);
+app.listen(3001, () => {
+  console.log(`express server listening on ${3001}`);
 });
