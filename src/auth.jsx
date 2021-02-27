@@ -14,7 +14,8 @@ export default class Auth extends Component {
     this.state = {
       path: 'login',
       email: '',
-      password: ''
+      password: '',
+      error: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSwitch = this.handleSwitch.bind(this)
@@ -30,14 +31,25 @@ export default class Auth extends Component {
 
   handleSwitch() {
     if (this.state.path === "login") {
-      this.setState({path: 'signUp'})
+      this.setState({
+        path: 'signUp',
+        email: '',
+        password: '',
+        error: false
+      })
 
     } else {
-      this.setState({path: 'login'})
+      this.setState({
+        path: 'login',
+        email: '',
+        password: ''
+      })
     }
   }
 
-  handleLogin(){
+  handleLogin(event){
+    event.preventDefault()
+
     const { email, password } = this.state
     const reqBody = { email, password }
 
@@ -48,6 +60,12 @@ export default class Auth extends Component {
     })
       .then(res => res.json())
       .then(result => {
+        if (result.error) {
+          this.setState({
+            error: true
+          })
+        }
+
         if (result.token && result.user) {
           this.props.handleLogin(result)
         }
@@ -55,7 +73,9 @@ export default class Auth extends Component {
       .catch(() => window.location.reload())
   }
 
-  handleSignUp(){
+  handleSignUp(event){
+    event.preventDefault()
+
     const { email, password } = this.state
     const reqBody = { email, password }
 
@@ -85,8 +105,15 @@ export default class Auth extends Component {
           <div className="w-100 p-5 text-center" style={form}>
             <form onSubmit = {this.handleLogin} className="d-flex flex-column">
               <div className="d-flex flex-column align-items-center">
-                <TextField InputLabelProps={{required:false}} onChange={this.handleChange} id ="email" label="Email" required type="email" value={this.state.email} />
-                <TextField InputLabelProps={{ required: false }} onChange={this.handleChange} inputProps={{ minLength:8 }} id="password" label="Password" type="password" required value={this.state.password} />
+
+                <TextField InputLabelProps={{required:false}} onChange={this.handleChange}
+                 id ="email" label="Email" required type="email" error={this.state.error}
+                 value={this.state.email} />
+
+                <TextField InputLabelProps={{ required: false }} onChange={this.handleChange}
+                 inputProps={{ minLength:8 }} id="password" label="Password" type="password"
+                 required value={this.state.password} error={this.state.error} />
+
               </div>
               <div className="text-center mt-4">
                 <IconButton style={{color: "black"}} type="submit">
@@ -116,8 +143,14 @@ export default class Auth extends Component {
           <div className="w-100 p-5 text-center" style={form}>
             <form onSubmit={this.handleSignUp} className="d-flex flex-column">
               <div className="d-flex flex-column align-items-center">
-                <TextField InputLabelProps={{ required: false }} onChange={this.handleChange} id="email" label="Email" required type="email" value={this.state.email} />
-                <TextField InputLabelProps={{ required: false }} onChange={this.handleChange} inputProps={{minLength:8}} id="password" label="Password" type="password" required value={this.state.password} />
+
+                <TextField InputLabelProps={{ required: false }} onChange={this.handleChange}
+                 id="email" label="Email" required type="email" value={this.state.email} />
+
+                <TextField InputLabelProps={{ required: false }} onChange={this.handleChange}
+                 inputProps={{minLength:8}} id="password" label="Password" type="password"
+                 required value={this.state.password} />
+
               </div>
               <div className="text-center mt-4">
                 <IconButton style={{ color: "black" }} type="submit">
