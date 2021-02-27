@@ -1,4 +1,4 @@
-import './App.css';
+import './styles.css';
 import React, { Component } from 'react';
 import { TextField, IconButton, CircularProgress } from '@material-ui/core';
 import { ExitToAppRounded, PersonAddRounded, ArrowBackRounded } from '@material-ui/icons'
@@ -99,7 +99,7 @@ export default class Auth extends Component {
     if (this.state.loading) {
       return (
         <div className="spinner">
-          <CircularProgress />
+          <CircularProgress className="spinner-icon" />
         </div>
       )
     }
