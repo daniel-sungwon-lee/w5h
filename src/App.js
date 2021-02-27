@@ -2,7 +2,8 @@ import './App.css';
 import React, { Component } from 'react';
 import {
   Switch,
-  Route
+  Route,
+  Redirect
 } from 'react-router-dom';
 import Auth from './auth';
 import decodeToken from './decode-token';
@@ -15,6 +16,7 @@ export default class App extends Component {
       user: null
     }
     this.handleLogin = this.handleLogin.bind(this)
+    this.handleSignOut = this.handleSignOut.bind(this)
   }
 
   componentDidMount() {
@@ -33,16 +35,25 @@ export default class App extends Component {
     window.location.pathname= "/"
   }
 
+  handleSignOut() {
+    window.localStorage.removeItem('userToken')
+    this.setState({ user: null })
+  }
+
   render() {
+    if (this.state.user === null) {
+      <Redirect to="/auth" />
+    }
+
     return (
       <Switch>
 
-        <Route exact path="/auth">
-          <Auth className="App" handleLogin={this.handleLogin} />
+        <Route path="/auth">
+          <Auth handleLogin={this.handleLogin} />
         </Route>
 
-        <Route exact path="/">
-          <Home className="App" />
+        <Route exact={true} path="/">
+          <Home handleSignOut={this.handleSignOut} />
         </Route>
 
       </Switch>
