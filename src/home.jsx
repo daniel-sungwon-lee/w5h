@@ -1,16 +1,24 @@
 import React, { useState } from 'react';
-import { Drawer, IconButton, List, ListItem, Fab } from '@material-ui/core';
+import { Drawer, IconButton, List, ListItem, Fab, CircularProgress } from '@material-ui/core';
 import { MenuRounded, AddRounded } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
+  menuIcon: {
+    fontSize: "3.5rem"
+  },
   list: {
     width: "250px",
   },
   fab: {
     background: "#D5F7C6",
-
+    padding: "12px"
+  },
+  empty: {
+    color: "black",
+    opacity: "0.3",
+    width: "100%"
   }
 });
 
@@ -26,9 +34,11 @@ export default function Home (props) {
 
   return (
     <div className="container">
-      <IconButton onClick={toggleDrawer("left", true)}>
-        <MenuRounded fontSize="large" />
-      </IconButton>
+      <div className="w-100 text-left">
+        <IconButton onClick={toggleDrawer("left", true)}>
+          <MenuRounded className={classes.menuIcon} />
+        </IconButton>
+      </div>
       <Drawer anchor={"left"} open={open["left"]} onClose={toggleDrawer("left", false)}>
         <div className={classes.list}>
           <List>
@@ -47,9 +57,17 @@ export default function Home (props) {
           </List>
         </div>
       </Drawer>
-      <Fab className={classes.fab}>
-        <AddRounded />
-      </Fab>
+      <div className={classes.empty}>
+        <div className="empty-message">
+          <h2>Such empty...</h2>
+          <h2>Add a new job application!</h2>
+        </div>
+      </div>
+      <div className="w-100 text-right">
+        <Fab id="fab" className={classes.fab}>
+          <AddRounded />
+        </Fab>
+      </div>
     </div>
   )
 }

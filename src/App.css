@@ -1,8 +1,14 @@
 .App {
   text-align: center;
 }
+.spinner {
+  position:absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
 
-.auth-header {
+h2 {
   font-size: 2rem;
 }
 .form-div {
@@ -10,12 +16,18 @@
   border-radius: 3rem;
   margin: 0 3rem;
 }
+.empty-message{
+  margin: 0 5rem;
+}
+#fab:hover{
+  background-color: white;
+}
 
 @media screen and (max-width: 767px) {
   .logo {
     width: 200px;
   }
-  .auth-header {
+  h2 {
     font-size: 1.5rem;
   }
   .form-div {
