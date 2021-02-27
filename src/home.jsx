@@ -29,8 +29,15 @@ export default function Home (props) {
   const [open, setOpen] = useState({
     left: false
   });
+  const [, setData] = useState([])
 
   useEffect(() => {
+    fetch('/api/applications')
+      .then(res => res.json())
+      .then(data => {
+        setData(data)
+      })
+
     setLoading(false)
   }, []);
 

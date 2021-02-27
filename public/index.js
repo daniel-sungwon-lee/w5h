@@ -75,7 +75,7 @@ app.post('/api/login', (req, res, next) => {
 });
 
 //entry
-app.post('/api/applications/', (req, res, next) => {
+app.post('/api/entry/', (req, res, next) => {
   const { userId, who, what, date, where, why, how } = req.body;
 
   const sql = `
@@ -93,6 +93,24 @@ app.post('/api/applications/', (req, res, next) => {
 })
 
 app.use(errorMiddleware);
+
+//home
+app.get('/api/applications/:userId', (req, res, next) => {
+  const userId = req.params.userId;
+
+  const sql=`
+  select * from "applications"
+  where userId = $1
+  `;
+  const params = [userId];
+
+  db.query(sql, params)
+    .then(result => {
+      res.status(200).json(result.rows);
+    })
+    .catch(err => next(err));
+
+})
 
 app.listen(3001, () => {
   console.log(`express server listening on ${3001}`);
