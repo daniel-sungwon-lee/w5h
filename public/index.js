@@ -76,6 +76,6 @@ app.post('/api/login', (req, res, next) => {
 
 app.use(errorMiddleware);
 
-app.listen(process.env.PORT, () => {
-  console.log(`express server listening on ${process.env.PORT}`);
+app.listen(3001, () => {
+  console.log(`express server listening on ${3001}`);
 });

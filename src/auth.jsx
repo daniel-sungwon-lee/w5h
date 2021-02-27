@@ -48,7 +48,9 @@ export default class Auth extends Component {
     })
       .then(res => res.json())
       .then(result => {
-
+        if (result.token && result.user) {
+          this.props.handleLogin(result)
+        }
       })
       .catch(() => window.location.reload())
   }
@@ -83,8 +85,8 @@ export default class Auth extends Component {
           <div className="w-100 p-5 text-center" style={form}>
             <form onSubmit = {this.handleLogin} className="d-flex flex-column">
               <div className="d-flex flex-column align-items-center">
-                <TextField onChange={this.handleChange} id ="email" label="Email" required type="email" value={this.state.email} />
-                <TextField onChange={this.handleChange} inputProps={{ minLength:8 }} id="password" label="Password" type="password" required value={this.state.password} />
+                <TextField InputLabelProps={{required:false}} onChange={this.handleChange} id ="email" label="Email" required type="email" value={this.state.email} />
+                <TextField InputLabelProps={{ required: false }} onChange={this.handleChange} inputProps={{ minLength:8 }} id="password" label="Password" type="password" required value={this.state.password} />
               </div>
               <div className="text-center mt-4">
                 <IconButton style={{color: "black"}} type="submit">
@@ -114,8 +116,8 @@ export default class Auth extends Component {
           <div className="w-100 p-5 text-center" style={form}>
             <form onSubmit={this.handleSignUp} className="d-flex flex-column">
               <div className="d-flex flex-column align-items-center">
-                <TextField onChange={this.handleChange} id="email" label="Email" required type="email" value={this.state.email} />
-                <TextField onChange={this.handleChange} inputProps={{minLength:8}} id="password" label="Password" type="password" required value={this.state.password} />
+                <TextField InputLabelProps={{ required: false }} onChange={this.handleChange} id="email" label="Email" required type="email" value={this.state.email} />
+                <TextField InputLabelProps={{ required: false }} onChange={this.handleChange} inputProps={{minLength:8}} id="password" label="Password" type="password" required value={this.state.password} />
               </div>
               <div className="text-center mt-4">
                 <IconButton style={{ color: "black" }} type="submit">
