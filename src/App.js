@@ -1,3 +1,4 @@
+import './styles.css'
 import React, { Component } from 'react';
 import {
   Switch,
@@ -7,6 +8,7 @@ import {
 import Auth from './auth';
 import decodeToken from './decode-token';
 import Home from './home';
+import Entry from './entry';
 
 export default class App extends Component {
   constructor(props) {
@@ -45,17 +47,23 @@ export default class App extends Component {
     }
 
     return (
-      <Switch>
+      <div className="App">
+        <Switch>
 
-        <Route path="/auth">
-          <Auth handleLogin={this.handleLogin} />
-        </Route>
+          <Route exact path="/auth">
+            <Auth handleLogin={this.handleLogin} />
+          </Route>
 
-        <Route exact={true} path="/">
-          <Home handleSignOut={this.handleSignOut} />
-        </Route>
+          <Route exact path="/">
+            <Home handleSignOut={this.handleSignOut} />
+          </Route>
 
-      </Switch>
+          <Route exact path="/entry">
+            <Entry user={this.state.user} />
+          </Route>
+
+        </Switch>
+      </div>
     );
   }
 }

@@ -79,9 +79,11 @@ export default function Home (props) {
       </div>
       <div className="w-100 d-flex justify-content-end">
         <div className="fab">
-          <Fab id="fab-button" className={classes.fab}>
-            <AddRounded />
-          </Fab>
+          <Link to="/entry" className="text-decoration-none">
+            <Fab id="fab-button" className={classes.fab}>
+              <AddRounded />
+            </Fab>
+          </Link>
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: Product Sans, sans-serif;
 }
 .spinner {
   position:absolute;
@@ -32,7 +33,6 @@ h2 {
 }
 
 
-
 @media screen and (max-width: 767px) {
   .logo {
     width: 200px;
@@ -42,5 +42,8 @@ h2 {
   }
   .form-div {
     margin: 0 2rem;
+  }
+  .form-div.entry {
+    margin: 0 1rem;
   }
 }

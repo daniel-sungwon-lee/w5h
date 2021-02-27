@@ -11,6 +11,7 @@ export default class Auth extends Component {
       email: '',
       password: '',
       error: false,
+      helperText: '',
       loading: true
     }
     this.handleChange = this.handleChange.bind(this)
@@ -35,7 +36,8 @@ export default class Auth extends Component {
         path: 'signUp',
         email: '',
         password: '',
-        error: false
+        error: false,
+        helperText: ''
       })
 
     } else {
@@ -65,6 +67,7 @@ export default class Auth extends Component {
         if (result.error) {
           this.setState({
             error: true,
+            helperText: result.error,
             loading: false
           })
         }
@@ -120,11 +123,12 @@ export default class Auth extends Component {
 
                 <TextField InputLabelProps={{required:false}} onChange={this.handleChange}
                  id ="email" label="Email" required type="email" error={this.state.error}
-                 value={this.state.email} />
+                 value={this.state.email} className="mt-4" />
 
                 <TextField InputLabelProps={{ required: false }} onChange={this.handleChange}
                  inputProps={{ minLength:8 }} id="password" label="Password" type="password"
-                 required value={this.state.password} error={this.state.error} />
+                 required value={this.state.password} error={this.state.error}
+                 helperText={this.state.helperText} className="mt-4" />
 
               </div>
               <div className="text-center mt-4">
@@ -157,11 +161,12 @@ export default class Auth extends Component {
               <div className="d-flex flex-column align-items-center">
 
                 <TextField InputLabelProps={{ required: false }} onChange={this.handleChange}
-                 id="email" label="Email" required type="email" value={this.state.email} />
+                 id="email" label="Email" required type="email" value={this.state.email}
+                 className="mt-4" />
 
                 <TextField InputLabelProps={{ required: false }} onChange={this.handleChange}
                  inputProps={{minLength:8}} id="password" label="Password" type="password"
-                 required value={this.state.password} />
+                 required value={this.state.password} className="mt-4" />
 
               </div>
               <div className="text-center mt-4">
