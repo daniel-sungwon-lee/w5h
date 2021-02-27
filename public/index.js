@@ -74,6 +74,24 @@ app.post('/api/login', (req, res, next) => {
     .catch(err => next(err));
 });
 
+//entry
+app.post('/api/applications/', (req, res, next) => {
+  const { userId, who, what, date, where, why, how } = req.body;
+
+  const sql = `
+  insert into "applications"
+    ("userId", "who", "what", "when", "where", "why", "how")
+  values ($1, $2, $3, $4, $5, $6, $7)
+  `;
+  const params = [userId, who, what, date, where, why, how]
+
+  db.query(sql, params)
+    .then(result => {
+      res.status(201).json(result.rows[0])
+    })
+    .catch(err => next(err))
+})
+
 app.use(errorMiddleware);
 
 app.listen(3001, () => {

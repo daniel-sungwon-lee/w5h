@@ -1,12 +1,7 @@
+import './styles.css';
 import React, { Component } from 'react';
-import { TextField, IconButton } from '@material-ui/core';
+import { TextField, IconButton, CircularProgress } from '@material-ui/core';
 import { ExitToAppRounded, PersonAddRounded, ArrowBackRounded } from '@material-ui/icons'
-
-const form = {
-  background: "#D5F7C6",
-  borderRadius: "3rem",
-  margin: "0 3rem"
-}
 
 export default class Auth extends Component {
   constructor(props) {
@@ -15,12 +10,18 @@ export default class Auth extends Component {
       path: 'login',
       email: '',
       password: '',
-      error: false
+      error: false,
+      helperText: '',
+      loading: true
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSwitch = this.handleSwitch.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
     this.handleSignUp = this.handleSignUp.bind(this)
+  }
+
+  componentDidMount() {
+    this.setState({ loading: false })
   }
 
   handleChange(event){
@@ -35,7 +36,8 @@ export default class Auth extends Component {
         path: 'signUp',
         email: '',
         password: '',
-        error: false
+        error: false,
+        helperText: ''
       })
 
     } else {
@@ -49,6 +51,8 @@ export default class Auth extends Component {
 
   handleLogin(event){
     event.preventDefault()
+    this.setState({ loading: true })
+
 
     const { email, password } = this.state
     const reqBody = { email, password }
@@ -62,7 +66,9 @@ export default class Auth extends Component {
       .then(result => {
         if (result.error) {
           this.setState({
-            error: true
+            error: true,
+            helperText: result.error,
+            loading: false
           })
         }
 
@@ -75,6 +81,7 @@ export default class Auth extends Component {
 
   handleSignUp(event){
     event.preventDefault()
+    this.setState({ loading:true })
 
     const { email, password } = this.state
     const reqBody = { email, password }
@@ -92,27 +99,36 @@ export default class Auth extends Component {
   }
 
   render() {
+    if (this.state.loading) {
+      return (
+        <div className="spinner">
+          <CircularProgress className="spinner-icon" />
+        </div>
+      )
+    }
+
     if (this.state.path === 'login') {
       return (
         <div className="container d-flex flex-wrap justify-content-center" style={{paddingBottom: "7rem"}}>
           <div className="w-100 text-center m-5">
-            <img width="250" src="/images/w5h.png" alt="W5H logo" />
+            <img className="logo" width="250" src="/images/w5h.png" alt="W5H logo" />
           </div>
           <div className="w-100 mx-5 mb-4">
             <h2>Hello, Job Seekers</h2>
             <h2>Sign in to get started</h2>
           </div>
-          <div className="w-100 p-5 text-center" style={form}>
+          <div className="w-100 p-5 text-center form-div">
             <form onSubmit = {this.handleLogin} className="d-flex flex-column">
               <div className="d-flex flex-column align-items-center">
 
                 <TextField InputLabelProps={{required:false}} onChange={this.handleChange}
                  id ="email" label="Email" required type="email" error={this.state.error}
-                 value={this.state.email} />
+                 value={this.state.email} className="mt-4" />
 
                 <TextField InputLabelProps={{ required: false }} onChange={this.handleChange}
                  inputProps={{ minLength:8 }} id="password" label="Password" type="password"
-                 required value={this.state.password} error={this.state.error} />
+                 required value={this.state.password} error={this.state.error}
+                 helperText={this.state.helperText} className="mt-4" />
 
               </div>
               <div className="text-center mt-4">
@@ -134,22 +150,23 @@ export default class Auth extends Component {
       return (
         <div className="container d-flex flex-wrap justify-content-center" style={{ paddingBottom: "7rem" }}>
           <div className="w-100 text-center m-5">
-            <img width="250" src="/images/w5h.png" alt="W5H logo" />
+            <img className="logo" width="250" src="/images/w5h.png" alt="W5H logo" />
           </div>
           <div className="w-100 mx-5 mb-4">
             <h2>Sign up</h2>
             <h2 className="invisible">hehe</h2>
           </div>
-          <div className="w-100 p-5 text-center" style={form}>
+          <div className="w-100 p-5 text-center form-div">
             <form onSubmit={this.handleSignUp} className="d-flex flex-column">
               <div className="d-flex flex-column align-items-center">
 
                 <TextField InputLabelProps={{ required: false }} onChange={this.handleChange}
-                 id="email" label="Email" required type="email" value={this.state.email} />
+                 id="email" label="Email" required type="email" value={this.state.email}
+                 className="mt-4" />
 
                 <TextField InputLabelProps={{ required: false }} onChange={this.handleChange}
                  inputProps={{minLength:8}} id="password" label="Password" type="password"
-                 required value={this.state.password} />
+                 required value={this.state.password} className="mt-4" />
 
               </div>
               <div className="text-center mt-4">

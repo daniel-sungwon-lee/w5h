@@ -1,0 +1,49 @@
+.App {
+  text-align: center;
+  font-family: Product Sans, sans-serif;
+}
+.spinner {
+  position:absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.spinner-icon {
+  color: #1db954 !important;
+}
+
+h2 {
+  font-size: 2rem;
+}
+.form-div {
+  background: #D5F7C6;
+  border-radius: 3rem;
+  margin: 0 3rem;
+}
+.empty-message{
+  margin: 0 5rem;
+}
+.fab {
+  width: fit-content;
+  padding: 12px;
+}
+#fab-button:hover{
+  background-color: #1db954;
+  color: white;
+}
+
+
+@media screen and (max-width: 767px) {
+  .logo {
+    width: 200px;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+  .form-div {
+    margin: 0 2rem;
+  }
+  .form-div.entry {
+    margin: 0 1rem;
+  }
+}
