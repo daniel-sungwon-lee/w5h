@@ -48,7 +48,7 @@ export default class Entry extends Component {
 
     const reqBody = { userId, who, what, date, where, why, how }
 
-    fetch('/api/applications', {
+    fetch('/api/entry', {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(reqBody)
@@ -105,7 +105,7 @@ export default class Entry extends Component {
               <KeyboardDatePicker
                 id="when"
                 fullWidth
-                helperText="Date of application"
+                helperText="Date applied"
                 margin="normal"
                 autoOk
                 variant="inline"

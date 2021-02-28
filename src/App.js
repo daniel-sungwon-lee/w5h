@@ -1,23 +1,22 @@
 import './styles.css'
 import React, { Component } from 'react';
-import {
-  Switch,
-  Route,
-  Redirect
-} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Auth from './auth';
 import decodeToken from './decode-token';
 import Home from './home';
 import Entry from './entry';
+import Application from './application';
 
 export default class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      user: null
+      user: null,
+      appId: null
     }
     this.handleLogin = this.handleLogin.bind(this)
     this.handleSignOut = this.handleSignOut.bind(this)
+    this.handleAppId = this.handleAppId.bind(this)
   }
 
   componentDidMount() {
@@ -41,28 +40,39 @@ export default class App extends Component {
     this.setState({ user: null })
   }
 
+  handleAppId(id) {
+    this.setState({appId: id})
+  }
+
   render() {
-    if (this.state.user === null) {
-      <Redirect to="/auth" />
+    if (!this.state.user) {
+      return <Auth handleLogin={this.handleLogin} />
     }
 
     return (
       <div className="App">
-        <Switch>
+        <Router>
+          <Switch>
 
-          <Route exact path="/auth">
-            <Auth handleLogin={this.handleLogin} />
-          </Route>
+            <Route exact path="/auth">
+              <Auth handleLogin={this.handleLogin} />
+            </Route>
 
-          <Route exact path="/">
-            <Home handleSignOut={this.handleSignOut} />
-          </Route>
+            <Route exact path="/">
+              <Home userId={this.state.user.userId} handleSignOut={this.handleSignOut}
+               handleAppId={this.handleAppId} />
+            </Route>
 
-          <Route exact path="/entry">
-            <Entry user={this.state.user} />
-          </Route>
+            <Route exact path="/entry">
+              <Entry user={this.state.user} />
+            </Route>
 
-        </Switch>
+            <Route exact path={`/application/${this.state.appId}`}>
+              <Application userId={this.state.user.userId} appId={this.state.appId} />
+            </Route>
+
+          </Switch>
+        </Router>
       </div>
     );
   }
