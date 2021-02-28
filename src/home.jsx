@@ -53,9 +53,9 @@ export default function Home (props) {
         }
 
         setData(data)
+        setLoading(false)
       })
 
-    setLoading(false)
   }, [props.userId]);
 
   const toggleDrawer = (side, open) => () => {

@@ -6,13 +6,15 @@ import decodeToken from './decode-token';
 import Home from './home';
 import Entry from './entry';
 import Application from './application';
+import { CircularProgress } from '@material-ui/core'
 
 export default class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
       user: null,
-      appId: null
+      appId: null,
+      loading: true
     }
     this.handleLogin = this.handleLogin.bind(this)
     this.handleSignOut = this.handleSignOut.bind(this)
@@ -24,7 +26,7 @@ export default class App extends Component {
     const user = token
       ? decodeToken(token)
       : null;
-    this.setState({ user });
+    this.setState({ user, loading: false });
   }
 
   handleLogin(result) {
@@ -45,6 +47,14 @@ export default class App extends Component {
   }
 
   render() {
+    if (this.state.loading) {
+      return (
+        <div className="spinner">
+          <CircularProgress className="spinner-icon" />
+        </div>
+      )
+    }
+
     if (!this.state.user) {
       return <Auth handleLogin={this.handleLogin} />
     }
