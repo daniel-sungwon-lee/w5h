@@ -62,6 +62,20 @@ export default function Home (props) {
     setOpen({ [side]: open })
   }
 
+  const handleDelete = (id) => () => {
+    const updated = data.filter(app=> {
+      return app.applicationId !== id
+    })
+
+    setData(updated)
+
+    fetch(`/api/application/${props.userId}/${id}`, {
+      method: "DELETE",
+      headers: {"Content-Type": "application/json"}
+    })
+      .catch(()=> window.location.reload());
+  }
+
   if (loading) {
     return (
       <div className="spinner">
@@ -116,7 +130,7 @@ export default function Home (props) {
                     </Link>
                     <div>
                       <Tooltip arrow title="Delete" placement="right">
-                        <IconButton>
+                        <IconButton onClick={handleDelete(applicationId)}>
                           <DeleteRounded color="secondary" fontSize="large" />
                         </IconButton>
                       </Tooltip>

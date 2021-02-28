@@ -149,7 +149,6 @@ app.delete('/api/application/:userId/:applicationId', (req, res, next) => {
 
 app.use(errorMiddleware);
 
-
 app.listen(3001, () => {
   console.log(`express server listening on ${3001}`);
 });
