@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Drawer, IconButton, List, ListItem, Fab, CircularProgress } from '@material-ui/core';
-import { MenuRounded, AddRounded } from '@material-ui/icons';
+import { Drawer, IconButton, List, ListItem, Fab, CircularProgress,
+         ListItemText, ListItemSecondaryAction, Checkbox } from '@material-ui/core';
+import { MenuRounded, AddRounded, DeleteRounded } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom';
 
@@ -20,6 +21,9 @@ const useStyles = makeStyles({
     color: "black",
     opacity: "0.3",
     width: "100%"
+  },
+  listItem: {
+    margin: "0 1rem"
   }
 });
 
@@ -29,12 +33,20 @@ export default function Home (props) {
   const [open, setOpen] = useState({
     left: false
   });
-  const [, setData] = useState([])
+  const [data, setData] = useState([])
+  const [checked, setChecked] = useState(false)
+  const [empty, setEmpty] = useState('empty-message')
 
   useEffect(() => {
     fetch(`/api/applications/${props.userId}`)
       .then(res => res.json())
       .then(data => {
+        if (data.length > 0) {
+          setEmpty('d-none')
+        } else {
+          setEmpty('empty-message')
+        }
+
         setData(data)
       })
 
@@ -78,8 +90,32 @@ export default function Home (props) {
           </List>
         </div>
       </Drawer>
+      <div className="">
+        <List className={classes.listItem}>
+          {
+            data.map(app => {
+              const { applicationId, who, what } = app
+
+              return (
+                <ListItem key={applicationId} button>
+                  <div>
+                    <Checkbox fontSize="large" onClick={() => setChecked(true)}
+                      edge="end" checked={checked} color="primary" />
+                  </div>
+                  <ListItemText inset primary={who} secondary={what} />
+                  <div>
+                    <IconButton>
+                      <DeleteRounded color="secondary" fontSize="large" />
+                    </IconButton>
+                  </div>
+                </ListItem>
+              )
+            })
+          }
+        </List>
+      </div>
       <div className={classes.empty}>
-        <div className="empty-message">
+        <div className={empty}>
           <h2>Such empty...</h2>
           <h2>Add a new job application!</h2>
         </div>
