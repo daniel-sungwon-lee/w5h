@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Drawer, IconButton, List, ListItem, Fab, CircularProgress,
-         ListItemText, Checkbox, Tooltip } from '@material-ui/core';
-import { MenuRounded, AddRounded, DeleteRounded } from '@material-ui/icons';
+         ListItemText, Checkbox, Tooltip, Menu, MenuItem } from '@material-ui/core';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+import { MenuRounded, AddRounded, MoreVertRounded, DeleteRounded } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom';
 
@@ -34,6 +35,9 @@ const useStyles = makeStyles({
     boxShadow: "0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)",
     margin: "3rem 0",
     borderRadius: "1.5rem"
+  },
+  menuItem: {
+    borderRadius: "1rem"
   }
 });
 
@@ -124,23 +128,37 @@ export default function Home (props) {
               const { applicationId, who, what } = app
 
               return (
-                  <ListItem key={applicationId} button className={classes.listItemCard}>
-                    <div>
-                      <Checkbox fontSize="large" onClick={() => setChecked(true)}
-                        edge="end" checked={checked} color="primary" />
-                    </div>
-                    <Link to={`/application/${applicationId}`} className="text-decoration-none w-100"
-                     onClick={() => props.handleAppId(applicationId)}>
-                      <ListItemText className="text-dark" inset primary={who} secondary={what} />
-                    </Link>
-                    <div>
-                      <Tooltip arrow title="Delete" placement="right">
-                        <IconButton onClick={handleDelete(applicationId)}>
-                          <DeleteRounded color="secondary" fontSize="large" />
-                        </IconButton>
-                      </Tooltip>
-                    </div>
-                  </ListItem>
+                <PopupState variant="popover">
+                  {
+                    popupState => (
+                      <ListItem key={applicationId} button className={classes.listItemCard}>
+                        <div>
+                          <Checkbox fontSize="large" onClick={() => setChecked(true)}
+                            edge="end" checked={checked} color="primary" />
+                        </div>
+                        <Link to={`/application/${applicationId}`} className="text-decoration-none w-100"
+                        onClick={() => props.handleAppId(applicationId)}>
+                          <ListItemText className="text-dark" inset primary={who} secondary={what} />
+                        </Link>
+                        <div>
+                          <IconButton {...bindTrigger(popupState)}>
+                            <MoreVertRounded fontSize="large" />
+                          </IconButton>
+                          <Menu {...bindMenu(popupState)}
+                            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                            >
+                            <div>
+                              <MenuItem onClick={popupState.close}>
+                                <DeleteRounded onClick={handleDelete(applicationId)} color="secondary" fontSize="large" />
+                              </MenuItem>
+                            </div>
+                          </Menu>
+                        </div>
+                      </ListItem>
+                    )
+                  }
+                </PopupState>
               )
             })
           }
