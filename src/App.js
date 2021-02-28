@@ -34,7 +34,10 @@ export default class App extends Component {
 
     this.setState({ user })
     window.localStorage.setItem('userToken', token);
-    window.location.pathname= "/"
+
+    if (window.localStorage.getItem('userToken')) {
+      window.location.pathname= "/"
+    }
   }
 
   handleSignOut() {

@@ -50,8 +50,8 @@ export default class Auth extends Component {
   }
 
   handleLogin(event){
-    event.preventDefault()
     this.setState({ loading: true })
+    event.preventDefault()
 
 
     const { email, password } = this.state
@@ -80,8 +80,8 @@ export default class Auth extends Component {
   }
 
   handleSignUp(event){
-    event.preventDefault()
     this.setState({ loading:true })
+    event.preventDefault()
 
     const { email, password } = this.state
     const reqBody = { email, password }

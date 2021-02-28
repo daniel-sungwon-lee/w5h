@@ -56,14 +56,14 @@ app.post('/api/login', (req, res, next) => {
     .then(result => {
       const [user] = result.rows;
       if (!user) {
-        throw new ClientError(401, 'invalid login');
+        throw new ClientError(401, 'Invalid login');
       }
       const { userId, hashedPassword, email } = user;
       argon2
         .verify(hashedPassword, password)
         .then(isMatch => {
           if (!isMatch) {
-            throw new ClientError(401, 'invalid login');
+            throw new ClientError(401, 'Invalid login');
           }
           const payload = { userId, email };
           const token = jwt.sign(payload, process.env.TOKEN_SECRET);
@@ -128,11 +128,26 @@ app.get('/api/application/:userId/:applicationId', (req, res, next) => {
     .catch(err => next(err));
 })
 
+//delete
+app.delete('/api/application/:userId/:applicationId', (req, res, next) => {
+  const { userId, applicationId } = req.params
 
+  const sql = `
+  delete from "applications"
+  where "userId" = $1
+  and "applicationId" = $2
+  `
+  const params = [ userId, applicationId ]
+
+  db.query(sql, params)
+    .then(result => {
+      res.status(204).json(result.rows[0])
+    })
+    .catch(err => next(err));
+})
 
 
 app.use(errorMiddleware);
-
 
 app.listen(3001, () => {
   console.log(`express server listening on ${3001}`);
