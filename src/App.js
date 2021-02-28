@@ -60,7 +60,7 @@ export default class App extends Component {
           </Route>
 
           <Route path="/application">
-            <Application />
+            <Application userId={this.state.user.userId} />
           </Route>
 
         </Switch>
