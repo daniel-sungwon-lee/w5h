@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Drawer, IconButton, List, ListItem, Fab, CircularProgress,
-         ListItemText, Checkbox } from '@material-ui/core';
+         ListItemText, Checkbox, Tooltip } from '@material-ui/core';
 import { MenuRounded, AddRounded, DeleteRounded } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom';
@@ -78,7 +78,7 @@ export default function Home (props) {
         </IconButton>
       </div>
       <div>
-        <h2 className="m-0 h2">Jobs Applied</h2>
+        <h2 className="mb-4 h2">Jobs Applied</h2>
       </div>
       <Drawer anchor={"left"} open={open["left"]} onClose={toggleDrawer("left", false)}>
         <div className={classes.list}>
@@ -115,9 +115,11 @@ export default function Home (props) {
                       <ListItemText className="text-dark" inset primary={who} secondary={what} />
                     </Link>
                     <div>
-                      <IconButton>
-                        <DeleteRounded color="secondary" fontSize="large" />
-                      </IconButton>
+                      <Tooltip arrow title="Delete" placement="right">
+                        <IconButton>
+                          <DeleteRounded color="secondary" fontSize="large" />
+                        </IconButton>
+                      </Tooltip>
                     </div>
                   </ListItem>
               )
@@ -134,9 +136,11 @@ export default function Home (props) {
       <div className="w-100 d-flex justify-content-end">
         <div className="fab">
           <Link to="/entry" className="text-decoration-none">
-            <Fab id="fab-button" className={classes.fab}>
-              <AddRounded />
-            </Fab>
+            <Tooltip title="Add" arrow>
+              <Fab id="fab-button" className={classes.fab}>
+                <AddRounded />
+              </Fab>
+            </Tooltip>
           </Link>
         </div>
       </div>

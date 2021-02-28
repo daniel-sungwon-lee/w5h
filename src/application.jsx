@@ -45,7 +45,7 @@ export default class Application extends Component {
             const [date] = dateArr
 
             return (
-              <Paper key={applicationId} elevation={5}>
+              <Paper key={applicationId} elevation={5} style={{ background: "#D5F7C6", borderRadius: "3rem"}}>
                 <div className="mt-5 p-5 text-center">
                   <h2 className="h2 m-0">{`Application for ${who}`}</h2>
                 </div>
