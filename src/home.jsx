@@ -32,14 +32,14 @@ export default function Home (props) {
   const [, setData] = useState([])
 
   useEffect(() => {
-    fetch('/api/applications')
+    fetch(`/api/applications/${props.userId}`)
       .then(res => res.json())
       .then(data => {
         setData(data)
       })
 
     setLoading(false)
-  }, []);
+  }, [props.userId]);
 
   const toggleDrawer = (side, open) => () => {
     setOpen({ [side]: open })

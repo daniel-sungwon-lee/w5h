@@ -2,8 +2,7 @@ import './styles.css'
 import React, { Component } from 'react';
 import {
   Switch,
-  Route,
-  Redirect
+  Route
 } from 'react-router-dom';
 import Auth from './auth';
 import decodeToken from './decode-token';
@@ -42,8 +41,8 @@ export default class App extends Component {
   }
 
   render() {
-    if (this.state.user === null) {
-      <Redirect to="/auth" />
+    if (!this.state.user) {
+      return <Auth handleLogin={this.handleLogin} />
     }
 
     return (
@@ -55,7 +54,7 @@ export default class App extends Component {
           </Route>
 
           <Route exact path="/">
-            <Home handleSignOut={this.handleSignOut} />
+            <Home userId={this.state.user.userId} handleSignOut={this.handleSignOut} />
           </Route>
 
           <Route exact path="/entry">

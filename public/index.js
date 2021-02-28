@@ -100,7 +100,7 @@ app.get('/api/applications/:userId', (req, res, next) => {
 
   const sql=`
   select * from "applications"
-  where userId = $1
+  where "userId" = $1
   `;
   const params = [userId];
 
