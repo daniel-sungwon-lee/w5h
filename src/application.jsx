@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CircularProgress } from '@material-ui/core'
+import { CircularProgress, Paper } from '@material-ui/core'
 
 import './styles.css'
 
@@ -8,25 +8,21 @@ export default class Application extends Component {
     super(props)
     this.state = {
       loading: true,
+      id: this.props.appId,
       data: []
     }
   }
 
   componentDidMount() {
-    const path = window.location.pathname
-    const pathArr = path.split("/")
-    const [, , applicationId] = pathArr
-
-    fetch(`/api/application/${this.props.userId}/${applicationId}`)
+    fetch(`/api/application/${this.props.userId}/${this.state.id}`)
       .then(res => res.json())
       .then(data => {
         this.setState({
           data: data,
           loading: false
         })
-
       })
-
+      .catch(() => window.location.reload());
   }
 
   render() {
@@ -40,9 +36,41 @@ export default class Application extends Component {
 
     return (
       <div className="container">
-        <div className="mt-5 text-center">
-          <h2>{}</h2>
-        </div>
+        {
+          this.state.data.map(app => {
+            const { applicationId, who, what, when, where, why, how } = app
+
+            return (
+              <Paper key={applicationId} elevation={5}>
+                <div className="mt-5 p-5 text-center">
+                  <h2 className="h2 m-0">{`Application for ${who}`}</h2>
+                </div>
+                <div className="text-left pb-5">
+                  <div className="px-5 py-3">
+                    <h3>Position</h3>
+                    <h5>{what}</h5>
+                  </div>
+                  <div className="px-5 py-3">
+                    <h3>Date applied</h3>
+                    <h5>{when}</h5>
+                  </div>
+                  <div className="px-5 py-3">
+                    <h3>Location</h3>
+                    <h5>{where}</h5>
+                  </div>
+                  <div className="px-5 py-3">
+                    <h3>Reason</h3>
+                    <h5>{why}</h5>
+                  </div>
+                  <div className="px-5 pt-3 pb-5">
+                    <h3>Method of application</h3>
+                    <h5>{how}</h5>
+                  </div>
+                </div>
+              </Paper>
+            )
+          })
+        }
       </div>
     )
   }

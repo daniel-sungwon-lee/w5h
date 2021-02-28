@@ -102,7 +102,8 @@ export default function Home (props) {
                       <Checkbox fontSize="large" onClick={() => setChecked(true)}
                         edge="end" checked={checked} color="primary" />
                     </div>
-                    <Link to={`/application/${applicationId}`} className="text-decoration-none w-100">
+                    <Link to={`/application/${applicationId}`} className="text-decoration-none w-100"
+                     onClick={() => props.handleAppId(applicationId)}>
                       <ListItemText className="text-dark" inset primary={who} secondary={what} />
                     </Link>
                     <div>
