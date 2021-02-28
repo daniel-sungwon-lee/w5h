@@ -29,6 +29,11 @@ const useStyles = makeStyles({
     fontFamily: "Product Sans",
     color: "black",
     margin: "0"
+  },
+  listItemCard: {
+    boxShadow: "0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)",
+    margin: "3rem 0",
+    borderRadius: "1.5rem"
   }
 });
 
@@ -119,7 +124,7 @@ export default function Home (props) {
               const { applicationId, who, what } = app
 
               return (
-                  <ListItem key={applicationId} button>
+                  <ListItem key={applicationId} button className={classes.listItemCard}>
                     <div>
                       <Checkbox fontSize="large" onClick={() => setChecked(true)}
                         edge="end" checked={checked} color="primary" />

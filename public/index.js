@@ -56,14 +56,14 @@ app.post('/api/login', (req, res, next) => {
     .then(result => {
       const [user] = result.rows;
       if (!user) {
-        throw new ClientError(401, 'invalid login');
+        throw new ClientError(401, 'Invalid login');
       }
       const { userId, hashedPassword, email } = user;
       argon2
         .verify(hashedPassword, password)
         .then(isMatch => {
           if (!isMatch) {
-            throw new ClientError(401, 'invalid login');
+            throw new ClientError(401, 'Invalid login');
           }
           const payload = { userId, email };
           const token = jwt.sign(payload, process.env.TOKEN_SECRET);
