@@ -128,7 +128,23 @@ app.get('/api/application/:userId/:applicationId', (req, res, next) => {
     .catch(err => next(err));
 })
 
+//delete
+app.delete('/api/application/:userId/:applicationId', (req, res, next) => {
+  const { userId, applicationId } = req.params
 
+  const sql = `
+  delete from "applications"
+  where "userId" = $1
+  and "applicationId" = $2
+  `
+  const params = [ userId, applicationId ]
+
+  db.query(sql, params)
+    .then(result => {
+      res.status(204).json(result.rows[0])
+    })
+    .catch(err => next(err));
+})
 
 
 app.use(errorMiddleware);
