@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Drawer, IconButton, List, ListItem, Fab, CircularProgress,
          ListItemText, Checkbox, Tooltip, Menu, MenuItem } from '@material-ui/core';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
-import { MenuRounded, AddRounded, MoreVertRounded, DeleteRounded } from '@material-ui/icons';
+import { MenuRounded, AddRounded, MoreVertRounded, DeleteRounded, EditRounded } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom';
 
@@ -36,9 +36,6 @@ const useStyles = makeStyles({
     margin: "3rem 0",
     borderRadius: "1.5rem"
   },
-  menuItem: {
-    borderRadius: "1rem"
-  }
 });
 
 export default function Home (props) {
@@ -150,7 +147,11 @@ export default function Home (props) {
                             >
                             <div>
                               <MenuItem onClick={popupState.close}>
-                                <DeleteRounded onClick={handleDelete(applicationId)} color="secondary" fontSize="large" />
+                                <EditRounded fontSize="large" />
+                              </MenuItem>
+                              <MenuItem onClick={popupState.close}>
+                                <DeleteRounded onClick={handleDelete(applicationId)}
+                                 color="secondary" fontSize="large" />
                               </MenuItem>
                             </div>
                           </Menu>
