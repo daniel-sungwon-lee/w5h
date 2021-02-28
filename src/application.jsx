@@ -46,7 +46,7 @@ export default class Application extends Component {
 
             return (
               <Paper key={applicationId} elevation={5} style={{ background: "#D5F7C6", borderRadius: "3rem"}}>
-                <div className="mt-5 p-5 text-center">
+                <div className="p-5 text-center">
                   <h2 className="h2 m-0">{`Application for ${who}`}</h2>
                 </div>
                 <div className="text-left pb-5 mb-5">

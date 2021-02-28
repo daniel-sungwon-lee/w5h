@@ -1,6 +1,7 @@
 import './styles.css'
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Nav from './nav';
 import Auth from './auth';
 import decodeToken from './decode-token';
 import Home from './home';
@@ -65,6 +66,7 @@ export default class App extends Component {
     return (
       <div className="App">
         <Router>
+          <Nav handleSignOut={this.handleSignOut} />
           <Switch>
 
             <Route exact path="/auth">
@@ -72,7 +74,7 @@ export default class App extends Component {
             </Route>
 
             <Route exact path="/">
-              <Home userId={this.state.user.userId} handleSignOut={this.handleSignOut}
+              <Home userId={this.state.user.userId}
                handleAppId={this.handleAppId} />
             </Route>
 

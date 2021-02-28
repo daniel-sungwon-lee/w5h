@@ -1,20 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Drawer, IconButton, List, ListItem, Fab, CircularProgress,
+import { IconButton, List, ListItem, Fab, CircularProgress,
          ListItemText, Checkbox, Tooltip, Menu, MenuItem } from '@material-ui/core';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
-import { MenuRounded, AddRounded, MoreVertRounded, DeleteRounded, EditRounded } from '@material-ui/icons';
+import { AddRounded, MoreVertRounded, DeleteRounded, EditRounded } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom';
 
 import './styles.css'
 
 const useStyles = makeStyles({
-  menuIcon: {
-    fontSize: "3.5rem"
-  },
-  list: {
-    width: "250px"
-  },
   fab: {
     background: "#D5F7C6"
   },
@@ -24,12 +18,8 @@ const useStyles = makeStyles({
     width: "100%"
   },
   listItem: {
-    margin: "0 1rem"
-  },
-  linkFont: {
-    fontFamily: "Product Sans",
-    color: "black",
-    margin: "0"
+    margin: "0 1rem",
+    paddingTop: "0"
   },
   listItemCard: {
     boxShadow: "0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)",
@@ -44,9 +34,6 @@ const useStyles = makeStyles({
 export default function Home (props) {
   const classes = useStyles();
   const [loading, setLoading] = useState(true)
-  const [open, setOpen] = useState({
-    left: false
-  });
   const [data, setData] = useState([])
   const [checked, setChecked] = useState(false)
   const [empty, setEmpty] = useState('empty-message')
@@ -66,10 +53,6 @@ export default function Home (props) {
       })
 
   }, [props.userId]);
-
-  const toggleDrawer = (side, open) => () => {
-    setOpen({ [side]: open })
-  }
 
   const handleDelete = (id) => () => {
     const updated = data.filter(app=> {
@@ -95,33 +78,10 @@ export default function Home (props) {
 
   return (
     <div className="container pb-3">
-      <div className="w-100 text-left">
-        <IconButton onClick={toggleDrawer("left", true)}>
-          <MenuRounded className={classes.menuIcon} />
-        </IconButton>
+      <div>
+        <h2 className="m-0 h2">Jobs Applied</h2>
       </div>
       <div>
-        <h2 className="mb-4 h2">Jobs Applied</h2>
-      </div>
-      <Drawer anchor={"left"} open={open["left"]} onClose={toggleDrawer("left", false)}>
-        <div className={classes.list}>
-          <List className="mt-4 text-center">
-            <ListItem onClick={toggleDrawer("left", false)}>
-              <Link to="/" className="text-decoration-none">
-                <h3 className={classes.linkFont}>Home</h3>
-              </Link>
-            </ListItem>
-            <ListItem onClick={toggleDrawer("left", false)}>
-              <Link to="/auth" className="text-decoration-none">
-                <h3 className={classes.linkFont} onClick={props.handleSignOut}>
-                  Sign out
-                </h3>
-              </Link>
-            </ListItem>
-          </List>
-        </div>
-      </Drawer>
-      <div className="">
         <List className={classes.listItem}>
           {
             data.map(app => {

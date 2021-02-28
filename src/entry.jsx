@@ -70,8 +70,8 @@ export default class Entry extends Component {
 
     return (
       <div className="container">
-        <div className="mt-5 text-center">
-          <h2>New Job Entry</h2>
+        <div className="mb-5 text-center">
+          <h2 className="m-0 h2">New Job Entry</h2>
         </div>
         <div className="my-5 form-div entry">
           <form className="p-5" onSubmit={this.handleSubmit}>
