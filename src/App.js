@@ -8,6 +8,7 @@ import Auth from './auth';
 import decodeToken from './decode-token';
 import Home from './home';
 import Entry from './entry';
+import Application from './application';
 
 export default class App extends Component {
   constructor(props) {
@@ -59,6 +60,10 @@ export default class App extends Component {
 
           <Route exact path="/entry">
             <Entry user={this.state.user} />
+          </Route>
+
+          <Route exact path="/application">
+            <Application />
           </Route>
 
         </Switch>
