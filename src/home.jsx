@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { IconButton, List, ListItem, Fab, CircularProgress,
-         ListItemText, Checkbox, Tooltip, Menu, MenuItem } from '@material-ui/core';
+         ListItemText, Checkbox, Menu, MenuItem } from '@material-ui/core';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import { AddRounded, MoreVertRounded, DeleteRounded, EditRounded } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles'
@@ -27,12 +27,16 @@ const useStyles = makeStyles({
     borderRadius: "1.5rem"
   },
   popup: {
-    borderRadius: "2rem"
+    borderRadius: "1.5rem"
+  },
+  icons: {
+    color: "black"
   }
 });
 
 export default function Home (props) {
   const classes = useStyles();
+
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState([])
   const [checked, setChecked] = useState(false)
@@ -88,7 +92,7 @@ export default function Home (props) {
               const { applicationId, who, what } = app
 
               return (
-                <PopupState variant="popover">
+                <PopupState key={applicationId} variant="popover">
                   {
                     popupState => (
                       <ListItem key={applicationId} button className={classes.listItemCard}>
@@ -109,14 +113,19 @@ export default function Home (props) {
                             }}
                             anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                             transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                            getContentAnchorEl={null}
                             >
                             <div>
                               <MenuItem onClick={popupState.close}>
-                                <EditRounded fontSize="large" />
+                                <IconButton>
+                                  <EditRounded className={classes.icons} fontSize="large" />
+                                </IconButton>
                               </MenuItem>
                               <MenuItem onClick={popupState.close}>
-                                <DeleteRounded onClick={handleDelete(applicationId)}
-                                 color="secondary" fontSize="large" />
+                                <IconButton onClick={handleDelete(applicationId)}>
+                                  <DeleteRounded
+                                  color="secondary" fontSize="large" />
+                                </IconButton>
                               </MenuItem>
                             </div>
                           </Menu>
@@ -139,11 +148,9 @@ export default function Home (props) {
       <div className="w-100 d-flex justify-content-end">
         <div className="fab">
           <Link to="/entry" className="text-decoration-none">
-            <Tooltip title="Add" arrow>
-              <Fab id="fab-button" className={classes.fab}>
-                <AddRounded />
-              </Fab>
-            </Tooltip>
+            <Fab id="fab-button" className={classes.fab}>
+              <AddRounded />
+            </Fab>
           </Link>
         </div>
       </div>

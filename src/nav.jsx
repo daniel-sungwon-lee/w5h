@@ -8,7 +8,8 @@ import './styles.css';
 
 const useStyles = makeStyles({
   root: {
-    boxShadow: "none"
+    boxShadow: "none",
+    background: "white"
   },
   menuIcon: {
     fontSize: "3.5rem"
@@ -36,8 +37,8 @@ export default function Nav (props) {
 
 
   return (
-    <div className="container">
-      <AppBar color="transparent" position="sticky" classes={{ root: classes.root }}>
+    <div className="container sticky-top">
+      <AppBar position="sticky" classes={{ root: classes.root }}>
         <div className="w-100 text-left">
           <IconButton onClick={toggleDrawer("left", true)}>
             <MenuRounded className={classes.menuIcon} />
