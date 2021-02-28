@@ -24,6 +24,11 @@ const useStyles = makeStyles({
   },
   listItem: {
     margin: "0 1rem"
+  },
+  linkFont: {
+    fontFamily: "Product Sans",
+    color: "black",
+    margin: "0"
   }
 });
 
@@ -72,17 +77,20 @@ export default function Home (props) {
           <MenuRounded className={classes.menuIcon} />
         </IconButton>
       </div>
+      <div>
+        <h2 className="m-0 h2">Jobs Applied</h2>
+      </div>
       <Drawer anchor={"left"} open={open["left"]} onClose={toggleDrawer("left", false)}>
         <div className={classes.list}>
-          <List>
+          <List className="mt-4 text-center">
             <ListItem onClick={toggleDrawer("left", false)}>
               <Link to="/" className="text-decoration-none">
-                <h3 className="text-dark">Home</h3>
+                <h3 className={classes.linkFont}>Home</h3>
               </Link>
             </ListItem>
             <ListItem onClick={toggleDrawer("left", false)}>
               <Link to="/auth" className="text-decoration-none">
-                <h3 className="text-dark" onClick={props.handleSignOut}>
+                <h3 className={classes.linkFont} onClick={props.handleSignOut}>
                   Sign out
                 </h3>
               </Link>
