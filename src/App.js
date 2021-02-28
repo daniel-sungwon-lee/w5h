@@ -1,9 +1,6 @@
 import './styles.css'
 import React, { Component } from 'react';
-import {
-  Switch,
-  Route
-} from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import Auth from './auth';
 import decodeToken from './decode-token';
 import Home from './home';
@@ -62,7 +59,7 @@ export default class App extends Component {
             <Entry user={this.state.user} />
           </Route>
 
-          <Route exact path="/application">
+          <Route path="/application">
             <Application />
           </Route>
 
