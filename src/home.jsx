@@ -36,6 +36,9 @@ const useStyles = makeStyles({
     margin: "3rem 0",
     borderRadius: "1.5rem"
   },
+  popup: {
+    borderRadius: "2rem"
+  }
 });
 
 export default function Home (props) {
@@ -141,7 +144,9 @@ export default function Home (props) {
                           <IconButton {...bindTrigger(popupState)}>
                             <MoreVertRounded fontSize="large" />
                           </IconButton>
-                          <Menu {...bindMenu(popupState)}
+                          <Menu {...bindMenu(popupState)} classes={{
+                              paper: classes.popup
+                            }}
                             anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                             transformOrigin={{ vertical: 'top', horizontal: 'right' }}
                             >
