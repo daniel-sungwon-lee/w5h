@@ -1,5 +1,5 @@
 * {
-  font-family: Product Sans, sans-serif;
+  font-family: Product Sans, sans-serif !important;
 }
 .App {
   text-align: center;
@@ -24,7 +24,7 @@
               0px 1px 14px 0px rgb(0 0 0 / 12%);
 }
 .empty-message{
-  margin: 0 5rem;
+  margin: 5rem;
 }
 .fab {
   width: fit-content;
@@ -41,6 +41,13 @@
 
 .application-form-header {
   padding: 3rem 3rem 1.5rem;
+}
+
+.MuiFormLabel-root.Mui-focused {
+  color: #1db954 !important;
+}
+.Mui-focused fieldset {
+  border-color: #1db954 !important;
 }
 
 @media screen and (max-width: 767px) {
