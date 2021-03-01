@@ -1,3 +1,6 @@
+* {
+  font-family: Product Sans, sans-serif;
+}
 .App {
   text-align: center;
   font-family: Product Sans, sans-serif;
@@ -12,9 +15,6 @@
   color: #1db954 !important;
 }
 
-h2 {
-  font-size: 2rem;
-}
 .form-div {
   background: #D5F7C6;
   border-radius: 3rem;
@@ -35,18 +35,28 @@ h2 {
   color: white;
 }
 
+.fit-content {
+  width: fit-content;
+}
+
+.application-form-header {
+  padding: 3rem 3rem 1.5rem;
+}
 
 @media screen and (max-width: 767px) {
   .logo {
     width: 200px;
-  }
-  h2 {
-    font-size: 1.5rem;
   }
   .form-div {
     margin: 0 2rem;
   }
   .form-div.entry {
     margin: 0 1rem;
+  }
+  .form-header {
+    margin: 0 0 1.5rem !important;
+  }
+  .application-form-header {
+    padding: 3rem 0 1.5rem;
   }
 }

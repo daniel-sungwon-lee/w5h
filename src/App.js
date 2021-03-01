@@ -1,6 +1,7 @@
 import './styles.css'
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Nav from './nav';
 import Auth from './auth';
 import decodeToken from './decode-token';
 import Home from './home';
@@ -27,6 +28,11 @@ export default class App extends Component {
       ? decodeToken(token)
       : null;
     this.setState({ user, loading: false });
+
+    const currentPath = window.location.pathname
+    const pathArr = currentPath.split("/")
+    const [, , appId] = pathArr
+    this.setState({ appId })
   }
 
   handleLogin(result) {
@@ -65,6 +71,7 @@ export default class App extends Component {
     return (
       <div className="App">
         <Router>
+          <Nav handleSignOut={this.handleSignOut} handleAppId={this.handleAppId} />
           <Switch>
 
             <Route exact path="/auth">
@@ -72,16 +79,18 @@ export default class App extends Component {
             </Route>
 
             <Route exact path="/">
-              <Home userId={this.state.user.userId} handleSignOut={this.handleSignOut}
+              <Home userId={this.state.user.userId}
                handleAppId={this.handleAppId} />
             </Route>
 
-            <Route exact path="/entry">
-              <Entry user={this.state.user} />
+            <Route path="/entry">
+              <Entry user={this.state.user} appId={this.state.appId}
+               handleAppId={this.handleAppId} />
             </Route>
 
             <Route exact path={`/application/${this.state.appId}`}>
-              <Application userId={this.state.user.userId} appId={this.state.appId} />
+              <Application userId={this.state.user.userId} appId={this.state.appId}
+               handleAppId={this.handleAppId} />
             </Route>
 
           </Switch>
