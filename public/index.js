@@ -146,6 +146,30 @@ app.delete('/api/application/:userId/:applicationId', (req, res, next) => {
     .catch(err => next(err));
 })
 
+//update
+app.patch('/api/application/:userId/:applicationId', (req, res, next) => {
+  const { userId, applicationId } = req.params
+  const { who, what, when, where, why, how } = req.body
+
+  const sql = `
+  update "applications"
+  set "who" = $3,
+      "what" = $4,
+      "when" = $5,
+      "where" = $6,
+      "why" = $7,
+      "how" = $8
+  where "userId" = $1
+  and "applicationId" = $2
+  `
+  const params = [ userId, applicationId, who, what, when, where, why, how ]
+
+  db.query(sql,params)
+    .then(result => {
+      res.status(200).json(result.rows[0])
+    })
+    .catch(err => next(err))
+})
 
 app.use(errorMiddleware);
 

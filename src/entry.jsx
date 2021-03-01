@@ -133,7 +133,7 @@ export default class Entry extends Component {
             <TextField
               id="why"
               label="Why"
-              helperText="Ex: To get paid to code!"
+              helperText="Ex: Great culture and compensation"
               fullWidth
               required
               margin="normal"
