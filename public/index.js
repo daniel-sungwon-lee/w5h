@@ -6,6 +6,7 @@ const ClientError = require('./client-error');
 const errorMiddleware = require('./error-middleware');
 const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
+const path = require('path')
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
@@ -170,6 +171,14 @@ app.patch('/api/entry/:userId/:applicationId', (req, res, next) => {
     })
     .catch(err => next(err))
 })
+
+
+//For Heroku React Router
+app.use((req, res) => {
+  res.sendFile('/index.html', {
+    root: path.join(__dirname, 'public')
+  });
+});
 
 app.use(errorMiddleware);
 
