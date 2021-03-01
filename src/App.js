@@ -7,7 +7,7 @@ import decodeToken from './decode-token';
 import Home from './home';
 import Entry from './entry';
 import Application from './application';
-import { CircularProgress } from '@material-ui/core'
+import { CircularProgress } from '@material-ui/core';
 
 export default class App extends Component {
   constructor(props) {
