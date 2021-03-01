@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { TextField, CircularProgress, IconButton } from '@material-ui/core';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import { AssignmentTurnedInRounded, ArrowBackRounded } from '@material-ui/icons';
+import { AssignmentTurnedInRounded, BlockRounded } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 
 import './styles.css'
@@ -114,13 +114,13 @@ export default class Entry extends Component {
       <div className="container">
         <div className="mb-4 mx-5 d-flex justify-content-between align-items-center form-header">
           <IconButton className="invisible">
-            <ArrowBackRounded style={{ fontSize: "3.5rem", color: "black" }} />
+            <BlockRounded style={{ fontSize: "3.5rem"}} />
           </IconButton>
           <h2 className="m-0 h2">{this.state.type} Job Entry</h2>
           <Link to="/" className="text-decoration-none"
            onClick={() => this.props.handleAppId(null)}>
             <IconButton>
-              <ArrowBackRounded style={{fontSize: "3.5rem", color: "black"}} />
+              <BlockRounded color="secondary" style={{fontSize: "3.5rem"}} />
             </IconButton>
           </Link>
         </div>

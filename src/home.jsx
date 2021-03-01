@@ -58,6 +58,10 @@ export default function Home (props) {
 
   }, [props.userId]);
 
+  const handleChange = (e) => {
+    setChecked(e.target.checked)
+  }
+
   const handleDelete = (id) => () => {
     const updated = data.filter(app=> {
       return app.applicationId !== id
@@ -81,7 +85,7 @@ export default function Home (props) {
   }
 
   return (
-    <div className="container pb-3">
+    <div className="container pb-5">
       <div>
         <h2 className="m-0 h2">Jobs Applied</h2>
       </div>
@@ -97,7 +101,7 @@ export default function Home (props) {
                     popupState => (
                       <ListItem key={applicationId} button className={classes.listItemCard}>
                         <div>
-                          <Checkbox fontSize="large" onClick={() => setChecked(true)}
+                          <Checkbox fontSize="large" onChange={handleChange}
                             edge="end" checked={checked} color="primary" />
                         </div>
                         <Link to={`/application/${applicationId}`} className="text-decoration-none w-100"
