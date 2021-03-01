@@ -6,7 +6,8 @@ const ClientError = require('./client-error');
 const errorMiddleware = require('./error-middleware');
 const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
-const path = require('path')
+const path = require('path');
+const port = process.env.PORT || 3001;
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
@@ -182,6 +183,6 @@ app.use((req, res) => {
 
 app.use(errorMiddleware);
 
-app.listen(3001, () => {
-  console.log(`express server listening on ${3001}`);
+app.listen(port, () => {
+  console.log(`express server listening on ${port}`);
 });
