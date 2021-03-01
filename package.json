@@ -33,6 +33,7 @@
     "server": "nodemon public/index.js",
     "db:import": "bash scripts/db-import.bash"
   },
+  "proxy": "http://localhost:3001/",
   "eslintConfig": {
     "extends": [
       "react-app",
