@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { TextField, CircularProgress, IconButton } from '@material-ui/core';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import { AssignmentTurnedInRounded } from '@material-ui/icons';
+import { AssignmentTurnedInRounded, ArrowBackRounded } from '@material-ui/icons';
+import { Link } from 'react-router-dom';
 
 import './styles.css'
 
@@ -111,10 +112,19 @@ export default class Entry extends Component {
 
     return (
       <div className="container">
-        <div className="mb-5 text-center">
+        <div className="mb-4 mx-5 d-flex justify-content-between align-items-center form-header">
+          <IconButton className="invisible">
+            <ArrowBackRounded style={{ fontSize: "3.5rem", color: "black" }} />
+          </IconButton>
           <h2 className="m-0 h2">{this.state.type} Job Entry</h2>
+          <Link to="/" className="text-decoration-none"
+           onClick={() => this.props.handleAppId(null)}>
+            <IconButton>
+              <ArrowBackRounded style={{fontSize: "3.5rem", color: "black"}} />
+            </IconButton>
+          </Link>
         </div>
-        <div className="my-5 form-div entry">
+        <div className="mb-5 mt-4 form-div entry">
           <form className="p-5" onSubmit={this.handleSubmit}>
             <TextField
               id="who"

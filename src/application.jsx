@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { CircularProgress, Paper, Tooltip } from '@material-ui/core'
+import { CircularProgress, Paper, Tooltip, IconButton } from '@material-ui/core'
+import { ArrowBackRounded } from '@material-ui/icons';
+import { Link } from 'react-router-dom';
 
 import './styles.css'
 
@@ -46,10 +48,19 @@ export default class Application extends Component {
 
             return (
               <Paper key={applicationId} elevation={5} style={{ background: "#D5F7C6", borderRadius: "3rem"}}>
-                <div className="p-5 d-flex justify-content-center">
+                <div className="application-form-header d-flex justify-content-between align-items-center">
+                  <IconButton className="invisible">
+                    <ArrowBackRounded style={{ fontSize: "3.5rem", color: "black" }} />
+                  </IconButton>
                   <Tooltip arrow title="Who">
                     <h2 className="h2 m-0 fit-content">{`Application for ${who}`}</h2>
                   </Tooltip>
+                  <Link to="/" className="text-decoration-none"
+                    onClick={() => this.props.handleAppId(null)}>
+                    <IconButton>
+                      <ArrowBackRounded style={{ fontSize: "3.5rem", color: "black" }} />
+                    </IconButton>
+                  </Link>
                 </div>
                 <div className="text-left pb-5 mb-5">
                   <div className="px-5 py-3">

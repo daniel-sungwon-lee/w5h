@@ -84,11 +84,13 @@ export default class App extends Component {
             </Route>
 
             <Route path="/entry">
-              <Entry user={this.state.user} appId={this.state.appId} />
+              <Entry user={this.state.user} appId={this.state.appId}
+               handleAppId={this.handleAppId} />
             </Route>
 
             <Route exact path={`/application/${this.state.appId}`}>
-              <Application userId={this.state.user.userId} appId={this.state.appId} />
+              <Application userId={this.state.user.userId} appId={this.state.appId}
+               handleAppId={this.handleAppId} />
             </Route>
 
           </Switch>

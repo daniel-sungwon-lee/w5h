@@ -39,6 +39,10 @@
   width: fit-content;
 }
 
+.application-form-header {
+  padding: 3rem 3rem 1.5rem;
+}
+
 @media screen and (max-width: 767px) {
   .logo {
     width: 200px;
@@ -48,5 +52,11 @@
   }
   .form-div.entry {
     margin: 0 1rem;
+  }
+  .form-header {
+    margin: 0 0 1.5rem !important;
+  }
+  .application-form-header {
+    padding: 3rem 0 1.5rem;
   }
 }
