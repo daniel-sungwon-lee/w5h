@@ -1,2 +1,2 @@
-release: psql $DATABASE_URL -f database/schema.sql
+release: npm run db:import
 web: npm start
