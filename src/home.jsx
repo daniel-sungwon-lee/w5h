@@ -27,7 +27,7 @@ const useStyles = makeStyles({
     borderRadius: "1.5rem"
   },
   popup: {
-    borderRadius: "1.5rem"
+    borderRadius: "3rem"
   },
   icons: {
     color: "black"
@@ -109,9 +109,11 @@ export default function Home (props) {
                           <ListItemText className="text-dark" inset primary={who} secondary={what} />
                         </Link>
                         <div>
+
                           <IconButton {...bindTrigger(popupState)}>
                             <MoreVertRounded fontSize="large" />
                           </IconButton>
+
                           <Menu {...bindMenu(popupState)} classes={{
                               paper: classes.popup
                             }}
@@ -120,6 +122,7 @@ export default function Home (props) {
                             getContentAnchorEl={null}
                             >
                             <div>
+
                               <MenuItem onClick={popupState.close}>
                                 <Link to={`/entry/${applicationId}`} className="text-decoration-none"
                                  onClick={() => props.handleAppId(applicationId)}>
@@ -127,6 +130,7 @@ export default function Home (props) {
                                     <EditRounded className={classes.icons} fontSize="large" />
                                   </IconButton>
                                 </Link>
+
                               </MenuItem>
                               <MenuItem onClick={popupState.close}>
                                 <IconButton onClick={handleDelete(applicationId)}>
@@ -134,6 +138,7 @@ export default function Home (props) {
                                   color="secondary" fontSize="large" />
                                 </IconButton>
                               </MenuItem>
+
                             </div>
                           </Menu>
                         </div>

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { TextField, CircularProgress, IconButton, Zoom, Grow } from '@material-ui/core';
+import { TextField, CircularProgress, IconButton, Zoom, Grow, Popover, Button } from '@material-ui/core';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { AssignmentTurnedInRounded, BlockRounded } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
+import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
 
 import './styles.css'
 
@@ -118,12 +119,29 @@ export default class Entry extends Component {
               <BlockRounded style={{ fontSize: "3.5rem"}} />
             </IconButton>
             <h2 className="m-0 h2">{this.state.type} Job Entry</h2>
-            <Link to="/" className="text-decoration-none"
-            onClick={() => this.props.handleAppId(null)}>
-              <IconButton>
-                <BlockRounded color="secondary" style={{fontSize: "3.5rem"}} />
-              </IconButton>
-            </Link>
+            <PopupState variant="popover" popupId="cancel">
+              {
+                popupState => (
+                  <>
+                    <IconButton {...bindTrigger(popupState)}>
+                      <BlockRounded color="secondary" style={{ fontSize: "3.5rem" }} />
+                    </IconButton>
+                    <Popover {...bindPopover(popupState)}
+                     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                     transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                    >
+                      <Link to="/" className="text-decoration-none"
+                      onClick={() => this.props.handleAppId(null)}>
+                        <Button variant="contained" color="secondary">
+                          Cancel?
+                        </Button>
+                      </Link>
+                    </Popover>
+                  </>
+                )
+              }
+            </PopupState>
+
           </div>
         </Zoom>
         <Grow in>
