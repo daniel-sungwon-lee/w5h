@@ -1,6 +1,6 @@
 import './styles.css';
 import React, { Component } from 'react';
-import { TextField, IconButton, CircularProgress } from '@material-ui/core';
+import { TextField, IconButton, CircularProgress, Fade } from '@material-ui/core';
 import { ExitToAppRounded, PersonAddRounded, ArrowBackRounded } from '@material-ui/icons'
 
 export default class Auth extends Component {
@@ -110,77 +110,93 @@ export default class Auth extends Component {
     if (this.state.path === 'login') {
       return (
         <div className="container d-flex flex-wrap justify-content-center" style={{paddingBottom: "7rem"}}>
-          <div className="w-100 text-center m-5">
-            <img className="logo" width="250" src="/images/w5h.png" alt="W5H logo" />
-          </div>
-          <div className="w-100 mx-5 mb-4">
-            <h2>Hello, Job Seekers</h2>
-            <h2>Sign in to get started</h2>
-          </div>
-          <div className="w-100 p-5 text-center form-div">
-            <form onSubmit = {this.handleLogin} className="d-flex flex-column">
-              <div className="d-flex flex-column align-items-center">
+          <Fade in timeout={500}>
+            <div className="w-100 text-center m-5">
+              <img className="logo" width="250" src="/images/w5h.png" alt="W5H logo" />
+            </div>
+          </Fade>
+          <Fade in timeout={1000}>
+            <div className="w-100 mx-5 mb-4">
+              <h2>Hello, Job Seekers</h2>
+              <h2>Sign in to get started</h2>
+            </div>
+          </Fade>
+          <Fade in timeout={1500}>
+            <div className="w-100 p-5 text-center form-div">
+              <form onSubmit = {this.handleLogin} className="d-flex flex-column">
+                <div className="d-flex flex-column align-items-center">
 
-                <TextField InputLabelProps={{required:false}} onChange={this.handleChange}
-                 id ="email" label="Email" required type="email" error={this.state.error}
-                 value={this.state.email} className="mt-4" />
+                  <TextField InputLabelProps={{required:false}} onChange={this.handleChange}
+                  id ="email" label="Email" required type="email" error={this.state.error}
+                  value={this.state.email} className="mt-4" />
 
-                <TextField InputLabelProps={{ required: false }} onChange={this.handleChange}
-                 inputProps={{ minLength:8 }} id="password" label="Password" type="password"
-                 required value={this.state.password} error={this.state.error}
-                 helperText={this.state.helperText} className="mt-4" />
+                  <TextField InputLabelProps={{ required: false }} onChange={this.handleChange}
+                  inputProps={{ minLength:8 }} id="password" label="Password" type="password"
+                  required value={this.state.password} error={this.state.error}
+                  helperText={this.state.helperText} className="mt-4" />
 
-              </div>
-              <div className="text-center mt-4">
-                <IconButton style={{color: "black"}} type="submit">
-                  <ExitToAppRounded fontSize="large" />
-                </IconButton>
-              </div>
-            </form>
-          </div>
-          <div>
-            <IconButton className="mt-4" onClick={this.handleSwitch}>
-              <PersonAddRounded style={{color: "black"}} fontSize="large" />
-            </IconButton>
-          </div>
+                </div>
+                <div className="text-center mt-4">
+                  <IconButton style={{color: "black"}} type="submit">
+                    <ExitToAppRounded fontSize="large" />
+                  </IconButton>
+                </div>
+              </form>
+            </div>
+          </Fade>
+          <Fade in timeout={2000}>
+            <div>
+              <IconButton className="mt-4" onClick={this.handleSwitch}>
+                <PersonAddRounded style={{color: "black"}} fontSize="large" />
+              </IconButton>
+            </div>
+          </Fade>
         </div>
       )
 
     } else {
       return (
         <div className="container d-flex flex-wrap justify-content-center" style={{ paddingBottom: "7rem" }}>
-          <div className="w-100 text-center m-5">
-            <img className="logo" width="250" src="/images/w5h.png" alt="W5H logo" />
-          </div>
-          <div className="w-100 mx-5 mb-4">
-            <h2>Sign up</h2>
-            <h2 className="invisible">hehe</h2>
-          </div>
-          <div className="w-100 p-5 text-center form-div">
-            <form onSubmit={this.handleSignUp} className="d-flex flex-column">
-              <div className="d-flex flex-column align-items-center">
+          <Fade in timeout={500}>
+            <div className="w-100 text-center m-5">
+              <img className="logo" width="250" src="/images/w5h.png" alt="W5H logo" />
+            </div>
+          </Fade>
+          <Fade in timeout={1000}>
+            <div className="w-100 mx-5 mb-4">
+              <h2>Sign up</h2>
+              <h2 className="invisible">hehe</h2>
+            </div>
+          </Fade>
+          <Fade in timeout={1500}>
+            <div className="w-100 p-5 text-center form-div">
+              <form onSubmit={this.handleSignUp} className="d-flex flex-column">
+                <div className="d-flex flex-column align-items-center">
 
-                <TextField InputLabelProps={{ required: false }} onChange={this.handleChange}
-                 id="email" label="Email" required type="email" value={this.state.email}
-                 className="mt-4" />
+                  <TextField InputLabelProps={{ required: false }} onChange={this.handleChange}
+                  id="email" label="Email" required type="email" value={this.state.email}
+                  className="mt-4" />
 
-                <TextField InputLabelProps={{ required: false }} onChange={this.handleChange}
-                 inputProps={{minLength:8}} id="password" label="Password" type="password"
-                 required value={this.state.password} className="mt-4" />
+                  <TextField InputLabelProps={{ required: false }} onChange={this.handleChange}
+                  inputProps={{minLength:8}} id="password" label="Password" type="password"
+                  required value={this.state.password} className="mt-4" />
 
-              </div>
-              <div className="text-center mt-4">
-                <IconButton style={{ color: "black" }} type="submit">
-                  <PersonAddRounded fontSize="large" />
-                </IconButton>
-              </div>
-            </form>
-          </div>
-          <div>
-            <IconButton className="mt-4" onClick={this.handleSwitch}>
-              <ArrowBackRounded style={{ color: "black" }} fontSize="large" />
-            </IconButton>
-          </div>
+                </div>
+                <div className="text-center mt-4">
+                  <IconButton style={{ color: "black" }} type="submit">
+                    <PersonAddRounded fontSize="large" />
+                  </IconButton>
+                </div>
+              </form>
+            </div>
+          </Fade>
+          <Fade in timeout={2000}>
+            <div>
+              <IconButton className="mt-4" onClick={this.handleSwitch}>
+                <ArrowBackRounded style={{ color: "black" }} fontSize="large" />
+              </IconButton>
+            </div>
+          </Fade>
         </div>
       )
     }

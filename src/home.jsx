@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { IconButton, List, ListItem, Fab, CircularProgress,
-         ListItemText, Checkbox, Menu, MenuItem, Zoom } from '@material-ui/core';
+         ListItemText, Checkbox, Menu, MenuItem, Zoom, Grow } from '@material-ui/core';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import { AddRounded, MoreVertRounded, DeleteRounded, EditRounded } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles'
@@ -154,7 +154,7 @@ export default function Home (props) {
           </div>
         </div>
       </Zoom>
-      <Zoom in>
+      <Grow in>
         <div className="w-100 d-flex justify-content-end">
           <div className="fab">
             <Link to="/entry" className="text-decoration-none">
@@ -164,7 +164,7 @@ export default function Home (props) {
             </Link>
           </div>
         </div>
-      </Zoom>
+      </Grow>
     </div>
   )
 }
