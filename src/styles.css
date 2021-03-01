@@ -34,7 +34,9 @@ h2 {
   background-color: #1db954;
   color: white;
 }
-
+.fit-content {
+  width: fit-content;
+}
 
 @media screen and (max-width: 767px) {
   .logo {
