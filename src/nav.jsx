@@ -47,18 +47,18 @@ export default function Nav (props) {
         <Drawer anchor={"left"} open={open["left"]} onClose={toggleDrawer("left", false)}>
           <div className={classes.list}>
             <List className="mt-4 p-3 text-center">
-              <ListItem onClick={toggleDrawer("left", false)}>
-                <Link to="/" className="text-decoration-none" onClick={() => props.handleAppId(null)}>
+              <Link to="/" className="text-decoration-none" onClick={() => props.handleAppId(null)}>
+                <ListItem onClick={toggleDrawer("left", false)}>
                   <h3 className={classes.linkFont}>Home</h3>
-                </Link>
-              </ListItem>
-              <ListItem onClick={toggleDrawer("left", false)}>
-                <Link to="/auth" className="text-decoration-none" onClick={() => props.handleAppId(null)}>
-                  <h3 className={classes.linkFont} onClick={props.handleSignOut}>
+                </ListItem>
+              </Link>
+              <Link to="/auth" className="text-decoration-none" onClick={() => props.handleAppId(null)}>
+                <ListItem onClick={props.handleSignOut}>
+                  <h3 className={classes.linkFont} onClick={toggleDrawer("left", false)}>
                     Sign out
                   </h3>
-                </Link>
-              </ListItem>
+                </ListItem>
+              </Link>
             </List>
           </div>
         </Drawer>
