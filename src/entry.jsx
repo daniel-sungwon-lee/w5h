@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TextField, CircularProgress, IconButton } from '@material-ui/core';
+import { TextField, CircularProgress, IconButton, Zoom, Grow } from '@material-ui/core';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { AssignmentTurnedInRounded, BlockRounded } from '@material-ui/icons';
@@ -112,113 +112,117 @@ export default class Entry extends Component {
 
     return (
       <div className="container">
-        <div className="mb-4 mx-5 d-flex justify-content-between align-items-center form-header">
-          <IconButton className="invisible">
-            <BlockRounded style={{ fontSize: "3.5rem"}} />
-          </IconButton>
-          <h2 className="m-0 h2">{this.state.type} Job Entry</h2>
-          <Link to="/" className="text-decoration-none"
-           onClick={() => this.props.handleAppId(null)}>
-            <IconButton>
-              <BlockRounded color="secondary" style={{fontSize: "3.5rem"}} />
+        <Zoom in>
+          <div className="mb-4 mx-5 d-flex justify-content-between align-items-center form-header">
+            <IconButton className="invisible">
+              <BlockRounded style={{ fontSize: "3.5rem"}} />
             </IconButton>
-          </Link>
-        </div>
-        <div className="mb-5 mt-4 form-div entry">
-          <form className="p-5" onSubmit={this.handleSubmit}>
-            <TextField
-              id="who"
-              label="Who"
-              helperText="Ex: Google"
-              fullWidth
-              required
-              value={this.state.who}
-              margin="normal"
-              InputLabelProps={{
-                required: false
-              }}
-              variant="outlined"
-              onChange={this.handleChange}
-            />
-            <TextField
-              id="what"
-              label="What"
-              helperText="Ex: Software Engineer"
-              fullWidth
-              required
-              value={this.state.what}
-              margin="normal"
-              InputLabelProps={{
-                required: false
-              }}
-              variant="outlined"
-              onChange={this.handleChange}
-            />
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <KeyboardDatePicker
-                id="when"
-                fullWidth
-                helperText="Date applied"
-                margin="normal"
-                autoOk
-                variant="inline"
-                inputVariant="outlined"
-                label="When"
-                format="MM/dd/yyyy"
-                value={this.state.date}
-                InputAdornmentProps={{ position: "start" }}
-                onChange={date => this.handleDateChange(date)}
-              />
-            </MuiPickersUtilsProvider>
-            <TextField
-              id="where"
-              label="Where"
-              helperText="Ex: Irvine, CA"
-              fullWidth
-              required
-              value={this.state.where}
-              margin="normal"
-              InputLabelProps={{
-                required: false
-              }}
-              variant="outlined"
-              onChange={this.handleChange}
-            />
-            <TextField
-              id="why"
-              label="Why"
-              helperText="Ex: Great culture and compensation"
-              fullWidth
-              required
-              value={this.state.why}
-              margin="normal"
-              InputLabelProps={{
-                required: false
-              }}
-              variant="outlined"
-              onChange={this.handleChange}
-            />
-            <TextField
-              id="how"
-              label="How"
-              helperText="Ex: Through Linkedin"
-              fullWidth
-              required
-              value={this.state.how}
-              margin="normal"
-              InputLabelProps={{
-                required: false
-              }}
-              variant="outlined"
-              onChange={this.handleChange}
-            />
-            <div className="text-center">
-              <IconButton style={{ color: "black" }} type="submit">
-                <AssignmentTurnedInRounded style={{ fontSize: "3.5rem" }} />
+            <h2 className="m-0 h2">{this.state.type} Job Entry</h2>
+            <Link to="/" className="text-decoration-none"
+            onClick={() => this.props.handleAppId(null)}>
+              <IconButton>
+                <BlockRounded color="secondary" style={{fontSize: "3.5rem"}} />
               </IconButton>
-            </div>
-          </form>
-        </div>
+            </Link>
+          </div>
+        </Zoom>
+        <Grow in>
+          <div className="mb-5 mt-4 form-div entry">
+            <form className="p-5" onSubmit={this.handleSubmit}>
+              <TextField
+                id="who"
+                label="Who"
+                helperText="Ex: Google"
+                fullWidth
+                required
+                value={this.state.who}
+                margin="normal"
+                InputLabelProps={{
+                  required: false
+                }}
+                variant="outlined"
+                onChange={this.handleChange}
+              />
+              <TextField
+                id="what"
+                label="What"
+                helperText="Ex: Software Engineer"
+                fullWidth
+                required
+                value={this.state.what}
+                margin="normal"
+                InputLabelProps={{
+                  required: false
+                }}
+                variant="outlined"
+                onChange={this.handleChange}
+              />
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  id="when"
+                  fullWidth
+                  helperText="Date applied"
+                  margin="normal"
+                  autoOk
+                  variant="inline"
+                  inputVariant="outlined"
+                  label="When"
+                  format="MM/dd/yyyy"
+                  value={this.state.date}
+                  InputAdornmentProps={{ position: "start" }}
+                  onChange={date => this.handleDateChange(date)}
+                />
+              </MuiPickersUtilsProvider>
+              <TextField
+                id="where"
+                label="Where"
+                helperText="Ex: Irvine, CA"
+                fullWidth
+                required
+                value={this.state.where}
+                margin="normal"
+                InputLabelProps={{
+                  required: false
+                }}
+                variant="outlined"
+                onChange={this.handleChange}
+              />
+              <TextField
+                id="why"
+                label="Why"
+                helperText="Ex: Great culture and compensation"
+                fullWidth
+                required
+                value={this.state.why}
+                margin="normal"
+                InputLabelProps={{
+                  required: false
+                }}
+                variant="outlined"
+                onChange={this.handleChange}
+              />
+              <TextField
+                id="how"
+                label="How"
+                helperText="Ex: Through Linkedin"
+                fullWidth
+                required
+                value={this.state.how}
+                margin="normal"
+                InputLabelProps={{
+                  required: false
+                }}
+                variant="outlined"
+                onChange={this.handleChange}
+              />
+              <div className="text-center">
+                <IconButton style={{ color: "black" }} type="submit">
+                  <AssignmentTurnedInRounded style={{ fontSize: "3.5rem" }} />
+                </IconButton>
+              </div>
+            </form>
+          </div>
+        </Grow>
       </div>
     )
   }

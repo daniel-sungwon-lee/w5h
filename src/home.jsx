@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { IconButton, List, ListItem, Fab, CircularProgress,
-         ListItemText, Checkbox, Menu, MenuItem } from '@material-ui/core';
+         ListItemText, Checkbox, Menu, MenuItem, Zoom, Grow } from '@material-ui/core';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import { AddRounded, MoreVertRounded, DeleteRounded, EditRounded } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles'
@@ -86,10 +86,10 @@ export default function Home (props) {
 
   return (
     <div className="container pb-5">
-      <div>
+      <Zoom in>
         <h2 className="m-0 h2">Jobs Applied</h2>
-      </div>
-      <div>
+      </Zoom>
+      <Zoom in style={{transitionDelay: "300ms"}}>
         <List className={classes.listItem}>
           {
             data.map(app => {
@@ -145,22 +145,26 @@ export default function Home (props) {
             })
           }
         </List>
-      </div>
-      <div className={classes.empty}>
-        <div className={empty}>
-          <h2>Such empty...</h2>
-          <h2>Add a new job application!</h2>
+      </Zoom>
+      <Zoom in>
+        <div className={classes.empty}>
+          <div className={empty}>
+            <h2>Such empty...</h2>
+            <h2>Add a new job application!</h2>
+          </div>
         </div>
-      </div>
-      <div className="w-100 d-flex justify-content-end">
-        <div className="fab">
-          <Link to="/entry" className="text-decoration-none">
-            <Fab id="fab-button" className={classes.fab}>
-              <AddRounded />
-            </Fab>
-          </Link>
+      </Zoom>
+      <Grow in>
+        <div className="w-100 d-flex justify-content-end">
+          <div className="fab">
+            <Link to="/entry" className="text-decoration-none">
+              <Fab id="fab-button" className={classes.fab}>
+                <AddRounded />
+              </Fab>
+            </Link>
+          </div>
         </div>
-      </div>
+      </Grow>
     </div>
   )
 }

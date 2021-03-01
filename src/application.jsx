@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CircularProgress, Paper, Tooltip, IconButton } from '@material-ui/core'
+import { CircularProgress, Paper, Tooltip, IconButton, Grow } from '@material-ui/core'
 import { ArrowBackRounded } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 
@@ -47,54 +47,56 @@ export default class Application extends Component {
             const [date] = dateArr
 
             return (
-              <Paper key={applicationId} elevation={5} style={{ background: "#D5F7C6", borderRadius: "3rem"}}>
-                <div className="application-form-header d-flex justify-content-between align-items-center">
-                  <IconButton className="invisible">
-                    <ArrowBackRounded style={{ fontSize: "3.5rem", color: "black" }} />
-                  </IconButton>
-                  <Tooltip arrow title="Who">
-                    <h2 className="h2 m-0 fit-content">{`Application for ${who}`}</h2>
-                  </Tooltip>
-                  <Link to="/" className="text-decoration-none"
-                    onClick={() => this.props.handleAppId(null)}>
-                    <IconButton>
+              <Grow in key={applicationId}>
+                <Paper key={applicationId} elevation={5} style={{ background: "#D5F7C6", borderRadius: "3rem"}}>
+                  <div className="application-form-header d-flex justify-content-between align-items-center">
+                    <IconButton className="invisible">
                       <ArrowBackRounded style={{ fontSize: "3.5rem", color: "black" }} />
                     </IconButton>
-                  </Link>
-                </div>
-                <div className="text-left pb-5 mb-5">
-                  <div className="px-5 py-3">
-                    <Tooltip arrow title="What" placement="right">
-                      <h3 className="fit-content">Position</h3>
+                    <Tooltip arrow title="Who">
+                      <h2 className="h2 m-0 fit-content">{`Application for ${who}`}</h2>
                     </Tooltip>
-                    <h5>{what}</h5>
+                    <Link to="/" className="text-decoration-none"
+                      onClick={() => this.props.handleAppId(null)}>
+                      <IconButton>
+                        <ArrowBackRounded style={{ fontSize: "3.5rem", color: "black" }} />
+                      </IconButton>
+                    </Link>
                   </div>
-                  <div className="px-5 py-3">
-                    <Tooltip arrow title="When" placement="right">
-                      <h3 className="fit-content">Date applied</h3>
-                    </Tooltip>
-                    <h5>{date}</h5>
+                  <div className="text-left pb-5 mb-5">
+                    <div className="px-5 py-3">
+                      <Tooltip arrow title="What" placement="right">
+                        <h3 className="fit-content">Position</h3>
+                      </Tooltip>
+                      <h5>{what}</h5>
+                    </div>
+                    <div className="px-5 py-3">
+                      <Tooltip arrow title="When" placement="right">
+                        <h3 className="fit-content">Date applied</h3>
+                      </Tooltip>
+                      <h5>{date}</h5>
+                    </div>
+                    <div className="px-5 py-3">
+                      <Tooltip arrow title="Where" placement="right">
+                        <h3 className="fit-content">Location</h3>
+                      </Tooltip>
+                      <h5>{where}</h5>
+                    </div>
+                    <div className="px-5 py-3">
+                      <Tooltip arrow title="Why" placement="right">
+                        <h3 className="fit-content">Reason</h3>
+                      </Tooltip>
+                      <h5>{why}</h5>
+                    </div>
+                    <div className="px-5 pt-3 pb-5">
+                      <Tooltip arrow title="How" placement="right">
+                        <h3 className="fit-content">Method of application</h3>
+                      </Tooltip>
+                      <h5>{how}</h5>
+                    </div>
                   </div>
-                  <div className="px-5 py-3">
-                    <Tooltip arrow title="Where" placement="right">
-                      <h3 className="fit-content">Location</h3>
-                    </Tooltip>
-                    <h5>{where}</h5>
-                  </div>
-                  <div className="px-5 py-3">
-                    <Tooltip arrow title="Why" placement="right">
-                      <h3 className="fit-content">Reason</h3>
-                    </Tooltip>
-                    <h5>{why}</h5>
-                  </div>
-                  <div className="px-5 pt-3 pb-5">
-                    <Tooltip arrow title="How" placement="right">
-                      <h3 className="fit-content">Method of application</h3>
-                    </Tooltip>
-                    <h5>{how}</h5>
-                  </div>
-                </div>
-              </Paper>
+                </Paper>
+              </Grow>
             )
           })
         }
