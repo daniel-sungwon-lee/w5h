@@ -16,16 +16,40 @@ export default class Entry extends Component {
       date: new Date(),
       where: '',
       why: '',
-      how: ''
+      how: '',
+      appId: this.props.appId,
+      type: 'New'
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount() {
-    this.setState({
-      loading: false
-    })
+    if (this.state.appId) {
+      fetch(`/api/application/${this.props.user.userId}/${this.state.appId}`)
+        .then(res => res.json())
+        .then(data => {
+          const [obj] = data
+          const { who, what, when, where, why, how } = obj
+
+          this.setState({
+            who,
+            what,
+            date: when,
+            where,
+            why,
+            how,
+            type: 'Edit',
+            loading: false
+          })
+        })
+        .catch(() => window.location.reload())
+
+    } else {
+      this.setState({
+        loading: false
+      })
+    }
   }
 
   handleChange(e) {
@@ -43,20 +67,37 @@ export default class Entry extends Component {
   handleSubmit(e) {
     this.setState({ loading: true })
     e.preventDefault()
-    const { who, what, date, where, why, how } = this.state
+
+    const { who, what, date, where, why, how, appId } = this.state
     const userId = this.props.user.userId
 
-    const reqBody = { userId, who, what, date, where, why, how }
 
-    fetch('/api/entry', {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(reqBody)
-    })
-      .then(res => {
-        window.location.pathname = "/"
+    if (this.state.appId) {
+      const reqBody = { who, what, date, where, why, how }
+
+      fetch(`/api/entry/${userId}/${appId}`, {
+        method: "PATCH",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(reqBody)
       })
-      .catch(() => window.location.reload());
+        .then(res => {
+          window.location.pathname = "/"
+        })
+        .catch(() => window.location.reload());
+
+    } else {
+      const reqBody = { userId, who, what, date, where, why, how }
+
+      fetch('/api/entry', {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(reqBody)
+      })
+        .then(res => {
+          window.location.pathname = "/"
+        })
+        .catch(() => window.location.reload());
+    }
   }
 
   render() {
@@ -71,7 +112,7 @@ export default class Entry extends Component {
     return (
       <div className="container">
         <div className="mb-5 text-center">
-          <h2 className="m-0 h2">New Job Entry</h2>
+          <h2 className="m-0 h2">{this.state.type} Job Entry</h2>
         </div>
         <div className="my-5 form-div entry">
           <form className="p-5" onSubmit={this.handleSubmit}>
@@ -81,6 +122,7 @@ export default class Entry extends Component {
               helperText="Ex: Google"
               fullWidth
               required
+              value={this.state.who}
               margin="normal"
               InputLabelProps={{
                 required: false
@@ -94,6 +136,7 @@ export default class Entry extends Component {
               helperText="Ex: Software Engineer"
               fullWidth
               required
+              value={this.state.what}
               margin="normal"
               InputLabelProps={{
                 required: false
@@ -123,6 +166,7 @@ export default class Entry extends Component {
               helperText="Ex: Irvine, CA"
               fullWidth
               required
+              value={this.state.where}
               margin="normal"
               InputLabelProps={{
                 required: false
@@ -136,6 +180,7 @@ export default class Entry extends Component {
               helperText="Ex: Great culture and compensation"
               fullWidth
               required
+              value={this.state.why}
               margin="normal"
               InputLabelProps={{
                 required: false
@@ -149,6 +194,7 @@ export default class Entry extends Component {
               helperText="Ex: Through Linkedin"
               fullWidth
               required
+              value={this.state.how}
               margin="normal"
               InputLabelProps={{
                 required: false

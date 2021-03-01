@@ -101,7 +101,7 @@ export default function Home (props) {
                             edge="end" checked={checked} color="primary" />
                         </div>
                         <Link to={`/application/${applicationId}`} className="text-decoration-none w-100"
-                        onClick={() => props.handleAppId(applicationId)}>
+                         onClick={() => props.handleAppId(applicationId)}>
                           <ListItemText className="text-dark" inset primary={who} secondary={what} />
                         </Link>
                         <div>
@@ -117,9 +117,12 @@ export default function Home (props) {
                             >
                             <div>
                               <MenuItem onClick={popupState.close}>
-                                <IconButton>
-                                  <EditRounded className={classes.icons} fontSize="large" />
-                                </IconButton>
+                                <Link to={`/entry/${applicationId}`} className="text-decoration-none"
+                                 onClick={() => props.handleAppId(applicationId)}>
+                                  <IconButton>
+                                    <EditRounded className={classes.icons} fontSize="large" />
+                                  </IconButton>
+                                </Link>
                               </MenuItem>
                               <MenuItem onClick={popupState.close}>
                                 <IconButton onClick={handleDelete(applicationId)}>

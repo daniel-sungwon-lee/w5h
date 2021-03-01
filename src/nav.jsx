@@ -37,7 +37,7 @@ export default function Nav (props) {
 
 
   return (
-    <div className="container sticky-top">
+    <div className="container sticky-top p-0">
       <AppBar position="sticky" classes={{ root: classes.root }}>
         <div className="w-100 text-left">
           <IconButton onClick={toggleDrawer("left", true)}>
@@ -48,12 +48,12 @@ export default function Nav (props) {
           <div className={classes.list}>
             <List className="mt-4 p-3 text-center">
               <ListItem onClick={toggleDrawer("left", false)}>
-                <Link to="/" className="text-decoration-none">
+                <Link to="/" className="text-decoration-none" onClick={() => props.handleAppId(null)}>
                   <h3 className={classes.linkFont}>Home</h3>
                 </Link>
               </ListItem>
               <ListItem onClick={toggleDrawer("left", false)}>
-                <Link to="/auth" className="text-decoration-none">
+                <Link to="/auth" className="text-decoration-none" onClick={() => props.handleAppId(null)}>
                   <h3 className={classes.linkFont} onClick={props.handleSignOut}>
                     Sign out
                   </h3>

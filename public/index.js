@@ -147,9 +147,9 @@ app.delete('/api/application/:userId/:applicationId', (req, res, next) => {
 })
 
 //update
-app.patch('/api/application/:userId/:applicationId', (req, res, next) => {
+app.patch('/api/entry/:userId/:applicationId', (req, res, next) => {
   const { userId, applicationId } = req.params
-  const { who, what, when, where, why, how } = req.body
+  const { who, what, date, where, why, how } = req.body
 
   const sql = `
   update "applications"
@@ -162,7 +162,7 @@ app.patch('/api/application/:userId/:applicationId', (req, res, next) => {
   where "userId" = $1
   and "applicationId" = $2
   `
-  const params = [ userId, applicationId, who, what, when, where, why, how ]
+  const params = [ userId, applicationId, who, what, date, where, why, how ]
 
   db.query(sql,params)
     .then(result => {
