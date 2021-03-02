@@ -114,7 +114,7 @@ export default class Entry extends Component {
     return (
       <div className="container">
         <Zoom in>
-          <div className="mb-4 mx-5 d-flex justify-content-between align-items-center form-header">
+          <div className="d-flex justify-content-between align-items-center form-header">
             <IconButton className="invisible">
               <BlockRounded style={{ fontSize: "3.5rem"}} />
             </IconButton>

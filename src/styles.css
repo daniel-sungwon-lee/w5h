@@ -39,8 +39,11 @@
   width: fit-content;
 }
 
+.form-header {
+  margin: -1.5rem 3rem 1.5rem ;
+}
 .application-form-header {
-  padding: 3rem 3rem 1.5rem;
+  padding: 2rem 3rem 1.5rem;
 }
 
 .MuiFormLabel-root.Mui-focused {
@@ -62,7 +65,7 @@
     margin: 0 1rem;
   }
   .form-header {
-    margin: 0 0 1.5rem !important;
+    margin: -1.5rem 0 1.5rem;
   }
   .application-form-header {
     padding: 3rem 0 1.5rem;

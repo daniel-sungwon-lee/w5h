@@ -8,11 +8,7 @@ import './styles.css';
 
 const useStyles = makeStyles({
   root: {
-    boxShadow: "none",
     background: "white"
-  },
-  menuIcon: {
-    fontSize: "3.5rem"
   },
   list: {
     width: "250px"
@@ -35,11 +31,11 @@ export default function Nav (props) {
 
 
   return (
-    <div className="container sticky-top p-0">
+    <div className="sticky-top p-0 mb-5">
       <AppBar position="sticky" classes={{ root: classes.root }}>
         <div className="w-100 text-left">
           <IconButton onClick={toggleDrawer("left", true)}>
-            <MenuRounded className={classes.menuIcon} />
+            <MenuRounded className={classes.icons} />
           </IconButton>
         </div>
         <Drawer anchor={"left"} open={open["left"]} onClose={toggleDrawer("left", false)}>
@@ -55,7 +51,7 @@ export default function Nav (props) {
                 </Button>
               </Link>
               <Link to="/auth" className="text-decoration-none" onClick={() => props.handleAppId(null)}>
-                <Button className="p-0" fullWidth>
+                <Button className="p-0" fullWidth color="secondary">
                   <ListItem className="d-flex justify-content-center py-3" onClick={props.handleSignOut}>
                     <h3 className="m-0" onClick={toggleDrawer("left", false)}>
                       <Icon color="secondary">
