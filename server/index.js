@@ -8,7 +8,6 @@ const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
 const path = require('path');
 const port = process.env.PORT || 3001;
-const publicPath = path.join(__dirname, '..', 'public');
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
@@ -196,9 +195,17 @@ app.patch('/api/application/:userId/:applicationId', (req, res, next) => {
     .catch(err => next(err))
 })
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(publicPath, 'index.html'));
-});
+//for Heroku deployment
+if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+  app.use(express.static(path.join(__dirname, 'client/build')));
+
+  // Handle React routing, return all requests to React app
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
+}
+
 
 app.use(errorMiddleware);
 
