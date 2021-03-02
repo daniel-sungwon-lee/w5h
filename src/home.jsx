@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { IconButton, List, ListItem, Fab, CircularProgress,
          ListItemText, Checkbox, Menu, MenuItem, Zoom, Grow } from '@material-ui/core';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
-import { AddRounded, MoreVertRounded, DeleteRounded, EditRounded } from '@material-ui/icons';
+import { AddRounded, MoreVertRounded, DeleteRounded, EditRounded,
+         CheckBoxRounded, IndeterminateCheckBoxRounded } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom';
 
@@ -31,6 +32,9 @@ const useStyles = makeStyles({
   },
   icons: {
     color: "black"
+  },
+  checkbox: {
+    color: "#1db954 !important"
   }
 });
 
@@ -101,8 +105,10 @@ export default function Home (props) {
                     popupState => (
                       <ListItem key={applicationId} button className={classes.listItemCard}>
                         <div>
-                          <Checkbox fontSize="large" onChange={handleChange}
-                            edge="end" checked={checked} color="primary" />
+                          <Checkbox fontSize="large" onChange={handleChange} classes={{
+                           checked: classes.checkbox
+                          }} checkedIcon={<CheckBoxRounded />} icon={<IndeterminateCheckBoxRounded />}
+                           edge="end" checked={checked} color="default" />
                         </div>
                         <Link to={`/application/${applicationId}`} className="text-decoration-none w-100"
                          onClick={() => props.handleAppId(applicationId)}>
