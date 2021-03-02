@@ -19,6 +19,7 @@ export default class Entry extends Component {
       where: '',
       why: '',
       how: '',
+      status: 'Applied',
       appId: this.props.appId,
       type: 'New'
     }
@@ -32,7 +33,7 @@ export default class Entry extends Component {
         .then(res => res.json())
         .then(data => {
           const [obj] = data
-          const { who, what, when, where, why, how } = obj
+          const { who, what, when, where, why, how, status } = obj
 
           this.setState({
             who,
@@ -41,6 +42,7 @@ export default class Entry extends Component {
             where,
             why,
             how,
+            status,
             type: 'Edit',
             loading: false
           })
@@ -70,12 +72,12 @@ export default class Entry extends Component {
     this.setState({ loading: true })
     e.preventDefault()
 
-    const { who, what, date, where, why, how, appId } = this.state
+    const { who, what, date, where, why, how, status, appId } = this.state
     const userId = this.props.user.userId
 
 
     if (this.state.appId) {
-      const reqBody = { who, what, date, where, why, how }
+      const reqBody = { who, what, date, where, why, how, status }
 
       fetch(`/api/entry/${userId}/${appId}`, {
         method: "PATCH",
@@ -88,7 +90,7 @@ export default class Entry extends Component {
         .catch(() => window.location.reload());
 
     } else {
-      const reqBody = { userId, who, what, date, where, why, how }
+      const reqBody = { userId, who, what, date, where, why, how, status, isChecked: false }
 
       fetch('/api/entry', {
         method: "POST",
@@ -226,6 +228,20 @@ export default class Entry extends Component {
                 fullWidth
                 required
                 value={this.state.how}
+                margin="normal"
+                InputLabelProps={{
+                  required: false
+                }}
+                variant="outlined"
+                onChange={this.handleChange}
+              />
+              <TextField
+                id="status"
+                label="Status"
+                helperText="Current status of job application"
+                fullWidth
+                required
+                value={this.state.status}
                 margin="normal"
                 InputLabelProps={{
                   required: false

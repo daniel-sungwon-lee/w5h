@@ -97,7 +97,7 @@ export default function Home (props) {
         <List className={classes.listItem}>
           {
             data.map(app => {
-              const { applicationId, who, what } = app
+              const { applicationId, who, what, isChecked } = app
 
               return (
                 <PopupState key={applicationId} variant="popover">
