@@ -3,7 +3,7 @@ import React, { Component, useState } from 'react';
 import { TextField, IconButton, CircularProgress, Fade, Dialog,
          DialogTitle, DialogContent } from '@material-ui/core';
 import { ExitToAppRounded, PersonAddRounded, ArrowBackRounded,
-         HelpRounded } from '@material-ui/icons';
+         HelpRounded, VpnKeyRounded } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 
 export default class Auth extends Component {
@@ -21,6 +21,7 @@ export default class Auth extends Component {
     this.handleSwitch = this.handleSwitch.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
     this.handleSignUp = this.handleSignUp.bind(this)
+    this.handleKey = this.handleKey.bind(this)
   }
 
   componentDidMount() {
@@ -101,6 +102,13 @@ export default class Auth extends Component {
       .catch(() => window.location.reload())
   }
 
+  handleKey() {
+    this.setState({
+      email: "demo@user",
+      password: "demouser"
+    })
+  }
+
   render() {
     if (this.state.loading) {
       return (
@@ -151,13 +159,22 @@ export default class Auth extends Component {
               </form>
             </div>
           </Fade>
-          <Fade in timeout={2000}>
-            <div>
-              <IconButton className="mt-4" onClick={this.handleSwitch}>
-                <PersonAddRounded style={{color: "black"}} fontSize="large" />
-              </IconButton>
-            </div>
-          </Fade>
+          <div className="d-flex mt-4 w-100 justify-content-center">
+            <Fade in timeout={2000}>
+              <div className="mx-2">
+                <IconButton onClick={this.handleSwitch}>
+                  <PersonAddRounded style={{color: "black"}} fontSize="large" />
+                </IconButton>
+              </div>
+            </Fade>
+            <Fade in timeout={2500}>
+              <div className="mx-2">
+                <IconButton onClick={this.handleKey}>
+                  <VpnKeyRounded fontSize="large" className="text-dark" />
+                </IconButton>
+              </div>
+            </Fade>
+          </div>
         </div>
         </>
       )
