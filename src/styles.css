@@ -15,6 +15,13 @@
   color: #1db954 !important;
 }
 
+.nav-logo-div {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
 .form-div {
   background: #D5F7C6;
   border-radius: 3rem;

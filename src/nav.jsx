@@ -63,6 +63,9 @@ export default function Nav (props) {
               </Link>
             </List>
           </div>
+          <div className="nav-logo-div">
+            <img src="images/w5h.png" width="60" alt="W5H logo" />
+          </div>
         </Drawer>
       </AppBar>
     </div>
