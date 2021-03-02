@@ -43,7 +43,6 @@ export default function Home (props) {
 
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState([])
-  const [checked, setChecked] = useState(false)
   const [empty, setEmpty] = useState('empty-message')
 
   useEffect(() => {
@@ -62,8 +61,21 @@ export default function Home (props) {
 
   }, [props.userId]);
 
-  const handleChange = (e) => {
-    setChecked(e.target.checked)
+  const handleCheckbox = (e) => {
+    let appId = parseInt(e.target.id)
+
+    const selected = data.filter(app => {
+      return appId === app.applicationId
+    })
+
+    if (selected[0].isChecked) {
+      selected[0].isChecked = false
+
+    } else {
+      selected[0].isChecked = true
+    }
+
+
   }
 
   const handleDelete = (id) => () => {
@@ -105,10 +117,10 @@ export default function Home (props) {
                     popupState => (
                       <ListItem key={applicationId} button className={classes.listItemCard}>
                         <div>
-                          <Checkbox fontSize="large" onChange={handleChange} classes={{
+                          <Checkbox fontSize="large" onClick={handleCheckbox} classes={{
                            checked: classes.checkbox
                           }} checkedIcon={<CheckBoxRounded />} icon={<IndeterminateCheckBoxRounded />}
-                           edge="end" checked={checked} color="default" />
+                           edge="end" checked={isChecked} color="default" id={applicationId.toString()} />
                         </div>
                         <Link to={`/application/${applicationId}`} className="text-decoration-none w-100"
                          onClick={() => props.handleAppId(applicationId)}>

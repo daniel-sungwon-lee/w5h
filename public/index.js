@@ -175,6 +175,25 @@ app.patch('/api/entry/:userId/:applicationId', (req, res, next) => {
     .catch(err => next(err))
 })
 
+//home checkbox update
+app.patch('/api/application/:userId/:applicationId', (req, res, next) => {
+  const { userId, applicationId } = req.params
+  const { isChecked } = req.body
+
+  const sql = `
+  update "applications"
+  set "isChecked" = $1
+  where "userId" = $2
+  and "applicationId" = $3
+  `
+  const params = [isChecked, userId, applicationId]
+
+  db.query(sql,params)
+    .then(result => {
+      res.status(200).json(result.rows[0])
+    })
+    .catch(err => next(err))
+})
 
 //For Heroku React Router
 app.use((req, res) => {
