@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { IconButton, List, ListItem, Fab, CircularProgress,
-         ListItemText, Checkbox, Menu, MenuItem, Zoom, Grow } from '@material-ui/core';
-import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+import { IconButton, List, ListItem, Fab, CircularProgress, Button,
+         ListItemText, Checkbox, Menu, MenuItem, Zoom, Grow, Popover } from '@material-ui/core';
+import PopupState, { bindTrigger, bindMenu, bindPopover } from 'material-ui-popup-state';
 import { AddRounded, MoreVertRounded, DeleteRounded, EditRounded,
          CheckBoxRounded, IndeterminateCheckBoxRounded } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles'
@@ -142,7 +142,7 @@ export default function Home (props) {
               const { applicationId, who, what, isChecked } = app
 
               return (
-                <PopupState key={applicationId} variant="popover">
+                <PopupState key={applicationId} id="menu" variant="popover">
                   {
                     popupState => (
                       <ListItem key={applicationId} button className={classes.listItemCard}>
@@ -171,7 +171,7 @@ export default function Home (props) {
                             >
                             <div>
 
-                              <MenuItem onClick={popupState.close}>
+                              <MenuItem>
                                 <Link to={`/entry/${applicationId}`} className="text-decoration-none"
                                  onClick={() => props.handleAppId(applicationId)}>
                                   <IconButton>
@@ -180,11 +180,31 @@ export default function Home (props) {
                                 </Link>
 
                               </MenuItem>
-                              <MenuItem onClick={popupState.close}>
-                                <IconButton onClick={handleDelete(applicationId)}>
-                                  <DeleteRounded
-                                  color="secondary" fontSize="large" />
-                                </IconButton>
+                              <MenuItem>
+                                <PopupState id="popover" variant="popover">
+                                  {
+                                    popupState2 => (
+                                      <>
+                                        <IconButton {...bindTrigger(popupState2)}>
+                                          <DeleteRounded
+                                          color="secondary" fontSize="large" />
+                                        </IconButton>
+
+                                        <Popover {...bindPopover(popupState2)}
+                                          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                          transformOrigin={{ vertical: 'top', horizontal: 'right' }}>
+
+                                          <Button onClick={handleDelete(applicationId)} variant="contained"
+                                          color="secondary">
+                                            Delete?
+                                          </Button>
+
+                                        </Popover>
+                                      </>
+                                    )
+                                  }
+                                </PopupState>
+
                               </MenuItem>
 
                             </div>
