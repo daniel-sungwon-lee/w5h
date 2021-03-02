@@ -5,8 +5,35 @@ import DateFnsUtils from '@date-io/date-fns';
 import { AssignmentTurnedInRounded, BlockRounded } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core';
 
 import './styles.css'
+
+const customCalendarTheme = createMuiTheme({
+  overrides: {
+    MuiPickersToolbar: {
+      toolbar: {
+        backgroundColor: "#1db954"
+      },
+    },
+    MuiPickersDay: {
+      daySelected: {
+        backgroundColor: "#1db954 !important"
+      },
+    },
+    MuiTypography: {
+      colorPrimary: {
+        color: "#1db954"
+      },
+    },
+    MuiPickersModal: {
+      dialogAction: {
+        color: "#1db954"
+      },
+    },
+  },
+})
 
 export default class Entry extends Component {
   constructor(props) {
@@ -178,20 +205,22 @@ export default class Entry extends Component {
                 onChange={this.handleChange}
               />
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <KeyboardDatePicker
-                  id="when"
-                  fullWidth
-                  helperText="Date applied"
-                  margin="normal"
-                  autoOk
-                  variant="inline"
-                  inputVariant="outlined"
-                  label="When"
-                  format="MM/dd/yyyy"
-                  value={this.state.date}
-                  InputAdornmentProps={{ position: "start" }}
-                  onChange={date => this.handleDateChange(date)}
-                />
+                <ThemeProvider theme={customCalendarTheme}>
+                  <KeyboardDatePicker
+                    id="when"
+                    fullWidth
+                    helperText="Date applied"
+                    margin="normal"
+                    autoOk
+                    variant="inline"
+                    inputVariant="outlined"
+                    label="When"
+                    format="MM/dd/yyyy"
+                    value={this.state.date}
+                    InputAdornmentProps={{ position: "start" }}
+                    onChange={date => this.handleDateChange(date)}
+                  />
+                </ThemeProvider>
               </MuiPickersUtilsProvider>
               <TextField
                 id="where"
