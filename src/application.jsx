@@ -42,7 +42,7 @@ export default class Application extends Component {
       <div className="container">
         {
           this.state.data.map(app => {
-            const { applicationId, who, what, when, where, why, how } = app
+            const { applicationId, who, what, when, where, why, how, status } = app
             const dateArr = when.split("T")
             const [date] = dateArr
 
@@ -88,11 +88,17 @@ export default class Application extends Component {
                       </Tooltip>
                       <h5>{why}</h5>
                     </div>
-                    <div className="px-5 pt-3 pb-5">
+                    <div className="px-5 py-3">
                       <Tooltip arrow title="How" placement="right">
                         <h3 className="fit-content">Method of application</h3>
                       </Tooltip>
                       <h5>{how}</h5>
+                    </div>
+                    <div className="px-5 pt-3 pb-5">
+                      <Tooltip arrow title="Status" placement="right">
+                        <h3 className="fit-content">Application status</h3>
+                      </Tooltip>
+                      <h5>{status}</h5>
                     </div>
                   </div>
                 </Paper>

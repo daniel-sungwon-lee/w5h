@@ -19,6 +19,8 @@ CREATE TABLE "applications" (
 	"where" TEXT NOT NULL,
 	"why" TEXT NOT NULL,
 	"how" TEXT NOT NULL,
+	"status" TEXT NOT NULL,
+	"isChecked" BOOLEAN NOT NULL,
 	CONSTRAINT "applications_pk" PRIMARY KEY ("applicationId")
 ) WITH (
   OIDS=FALSE

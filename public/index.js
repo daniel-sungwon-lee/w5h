@@ -78,14 +78,14 @@ app.post('/api/login', (req, res, next) => {
 
 //entry
 app.post('/api/entry/', (req, res, next) => {
-  const { userId, who, what, date, where, why, how } = req.body;
+  const { userId, who, what, date, where, why, how, status, isChecked } = req.body;
 
   const sql = `
   insert into "applications"
-    ("userId", "who", "what", "when", "where", "why", "how")
-  values ($1, $2, $3, $4, $5, $6, $7)
+    ("userId", "who", "what", "when", "where", "why", "how", "status", "isChecked")
+  values ($1, $2, $3, $4, $5, $6, $7, $8, $9)
   `;
-  const params = [userId, who, what, date, where, why, how]
+  const params = [userId, who, what, date, where, why, how, status, isChecked]
 
   db.query(sql, params)
     .then(result => {
@@ -101,7 +101,8 @@ app.get('/api/applications/:userId', (req, res, next) => {
   const sql=`
   select * from "applications"
   where "userId" = $1
-  order by "when" desc
+  order by "isChecked" desc,
+  "when" desc
   `;
   const params = [userId];
 
@@ -151,7 +152,7 @@ app.delete('/api/application/:userId/:applicationId', (req, res, next) => {
 //update
 app.patch('/api/entry/:userId/:applicationId', (req, res, next) => {
   const { userId, applicationId } = req.params
-  const { who, what, date, where, why, how } = req.body
+  const { who, what, date, where, why, how, status } = req.body
 
   const sql = `
   update "applications"
@@ -160,11 +161,12 @@ app.patch('/api/entry/:userId/:applicationId', (req, res, next) => {
       "when" = $5,
       "where" = $6,
       "why" = $7,
-      "how" = $8
+      "how" = $8,
+      "status" = $9
   where "userId" = $1
   and "applicationId" = $2
   `
-  const params = [ userId, applicationId, who, what, date, where, why, how ]
+  const params = [ userId, applicationId, who, what, date, where, why, how, status ]
 
   db.query(sql,params)
     .then(result => {
@@ -173,6 +175,25 @@ app.patch('/api/entry/:userId/:applicationId', (req, res, next) => {
     .catch(err => next(err))
 })
 
+//home checkbox update
+app.patch('/api/application/:userId/:applicationId', (req, res, next) => {
+  const { userId, applicationId } = req.params
+  const { isChecked } = req.body
+
+  const sql = `
+  update "applications"
+  set "isChecked" = $1
+  where "userId" = $2
+  and "applicationId" = $3
+  `
+  const params = [isChecked, userId, applicationId]
+
+  db.query(sql,params)
+    .then(result => {
+      res.status(200).json(result.rows[0])
+    })
+    .catch(err => next(err))
+})
 
 //For Heroku React Router
 app.use((req, res) => {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { IconButton, List, ListItem, Fab, CircularProgress,
-         ListItemText, Checkbox, Menu, MenuItem, Zoom, Grow } from '@material-ui/core';
-import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+import { IconButton, List, ListItem, Fab, CircularProgress, Button,
+         ListItemText, Checkbox, Menu, MenuItem, Zoom, Grow, Popover } from '@material-ui/core';
+import PopupState, { bindTrigger, bindMenu, bindPopover } from 'material-ui-popup-state';
 import { AddRounded, MoreVertRounded, DeleteRounded, EditRounded,
          CheckBoxRounded, IndeterminateCheckBoxRounded } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles'
@@ -43,7 +43,6 @@ export default function Home (props) {
 
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState([])
-  const [checked, setChecked] = useState(false)
   const [empty, setEmpty] = useState('empty-message')
 
   useEffect(() => {
@@ -59,11 +58,54 @@ export default function Home (props) {
         setData(data)
         setLoading(false)
       })
+      .catch(() => window.location.reload())
 
   }, [props.userId]);
 
-  const handleChange = (e) => {
-    setChecked(e.target.checked)
+  const handleCheckbox = (e) => {
+    let appId = parseInt(e.target.id)
+
+    if (e.target.checked) {
+      const reqBody = {isChecked: true}
+
+      fetch(`/api/application/${props.userId}/${appId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(reqBody)
+      })
+        .then(res => res.json())
+        .then(result => {
+
+          fetch(`/api/applications/${props.userId}`)
+            .then(res => res.json())
+            .then(data => {
+              setData(data)
+            })
+            .catch(() => window.location.reload())
+        })
+        .catch(() => window.location.reload())
+
+    } else {
+      const reqBody = {isChecked: false}
+
+      fetch(`/api/application/${props.userId}/${appId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(reqBody)
+      })
+        .then(res => res.json())
+        .then(result => {
+
+          fetch(`/api/applications/${props.userId}`)
+            .then(res => res.json())
+            .then(data => {
+              setData(data)
+            })
+            .catch(() => window.location.reload())
+        })
+        .catch(() => window.location.reload())
+
+    }
   }
 
   const handleDelete = (id) => () => {
@@ -97,18 +139,18 @@ export default function Home (props) {
         <List className={classes.listItem}>
           {
             data.map(app => {
-              const { applicationId, who, what } = app
+              const { applicationId, who, what, isChecked } = app
 
               return (
-                <PopupState key={applicationId} variant="popover">
+                <PopupState key={applicationId} id="menu" variant="popover">
                   {
                     popupState => (
                       <ListItem key={applicationId} button className={classes.listItemCard}>
                         <div>
-                          <Checkbox fontSize="large" onChange={handleChange} classes={{
+                          <Checkbox fontSize="large" onClick={handleCheckbox} classes={{
                            checked: classes.checkbox
                           }} checkedIcon={<CheckBoxRounded />} icon={<IndeterminateCheckBoxRounded />}
-                           edge="end" checked={checked} color="default" />
+                           edge="end" checked={isChecked} color="default" id={applicationId.toString()} />
                         </div>
                         <Link to={`/application/${applicationId}`} className="text-decoration-none w-100"
                          onClick={() => props.handleAppId(applicationId)}>
@@ -129,20 +171,39 @@ export default function Home (props) {
                             >
                             <div>
 
-                              <MenuItem onClick={popupState.close}>
-                                <Link to={`/entry/${applicationId}`} className="text-decoration-none"
-                                 onClick={() => props.handleAppId(applicationId)}>
-                                  <IconButton>
+                              <Link to={`/entry/${applicationId}`} className="text-decoration-none"
+                               onClick={() => props.handleAppId(applicationId)}>
+                                <MenuItem dense>
+                                  <IconButton className="p-2">
                                     <EditRounded className={classes.icons} fontSize="large" />
                                   </IconButton>
-                                </Link>
+                                </MenuItem>
+                              </Link>
 
-                              </MenuItem>
-                              <MenuItem onClick={popupState.close}>
-                                <IconButton onClick={handleDelete(applicationId)}>
-                                  <DeleteRounded
-                                  color="secondary" fontSize="large" />
-                                </IconButton>
+                              <MenuItem dense>
+                                <PopupState id="popover" variant="popover">
+                                  {
+                                    popupState2 => (
+                                      <>
+                                        <IconButton className="p-2" {...bindTrigger(popupState2)}>
+                                          <DeleteRounded
+                                          color="secondary" fontSize="large" />
+                                        </IconButton>
+
+                                        <Popover {...bindPopover(popupState2)}
+                                          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                          transformOrigin={{ vertical: 'top', horizontal: 'right' }}>
+
+                                          <Button onClick={handleDelete(applicationId)} variant="contained"
+                                          color="secondary">
+                                            Delete?
+                                          </Button>
+
+                                        </Popover>
+                                      </>
+                                    )
+                                  }
+                                </PopupState>
                               </MenuItem>
 
                             </div>
