@@ -171,21 +171,21 @@ export default function Home (props) {
                             >
                             <div>
 
-                              <MenuItem>
-                                <Link to={`/entry/${applicationId}`} className="text-decoration-none"
-                                 onClick={() => props.handleAppId(applicationId)}>
-                                  <IconButton>
+                              <Link to={`/entry/${applicationId}`} className="text-decoration-none"
+                               onClick={() => props.handleAppId(applicationId)}>
+                                <MenuItem dense>
+                                  <IconButton className="p-2">
                                     <EditRounded className={classes.icons} fontSize="large" />
                                   </IconButton>
-                                </Link>
+                                </MenuItem>
+                              </Link>
 
-                              </MenuItem>
-                              <MenuItem>
+                              <MenuItem dense>
                                 <PopupState id="popover" variant="popover">
                                   {
                                     popupState2 => (
                                       <>
-                                        <IconButton {...bindTrigger(popupState2)}>
+                                        <IconButton className="p-2" {...bindTrigger(popupState2)}>
                                           <DeleteRounded
                                           color="secondary" fontSize="large" />
                                         </IconButton>
@@ -204,7 +204,6 @@ export default function Home (props) {
                                     )
                                   }
                                 </PopupState>
-
                               </MenuItem>
 
                             </div>
