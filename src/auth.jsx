@@ -1,7 +1,10 @@
 import './styles.css';
-import React, { Component } from 'react';
-import { TextField, IconButton, CircularProgress, Fade } from '@material-ui/core';
-import { ExitToAppRounded, PersonAddRounded, ArrowBackRounded } from '@material-ui/icons'
+import React, { Component, useState } from 'react';
+import { TextField, IconButton, CircularProgress, Fade, Dialog,
+         DialogTitle, DialogContent } from '@material-ui/core';
+import { ExitToAppRounded, PersonAddRounded, ArrowBackRounded,
+         HelpRounded } from '@material-ui/icons';
+import { makeStyles } from '@material-ui/core/styles';
 
 export default class Auth extends Component {
   constructor(props) {
@@ -109,6 +112,10 @@ export default class Auth extends Component {
 
     if (this.state.path === 'login') {
       return (
+        <>
+        <Fade in timeout={1500}>
+          <HelpDialog />
+        </Fade>
         <div className="container d-flex flex-wrap justify-content-center" style={{paddingBottom: "7rem"}}>
           <Fade in timeout={500}>
             <div className="w-100 text-center m-5">
@@ -152,6 +159,7 @@ export default class Auth extends Component {
             </div>
           </Fade>
         </div>
+        </>
       )
 
     } else {
@@ -202,4 +210,54 @@ export default class Auth extends Component {
     }
   }
 
+}
+
+const useStyles = makeStyles({
+  iconButton: {
+    position: "absolute",
+    top: "2rem",
+    right: "2rem",
+  },
+  icon: {
+    fontSize: "2.5rem",
+    color: "black",
+    opacity: "0.3"
+  },
+  paper: {
+    padding: "2rem",
+    borderRadius: "3rem",
+    backgroundColor: "#D5F7C6"
+  },
+  content: {
+    fontSize: "1.25rem"
+  }
+})
+
+function HelpDialog (props) {
+  const classes = useStyles()
+  const [open, setOpen] = useState(false)
+
+  return (
+    <>
+      <IconButton className={classes.iconButton} onClick={() => setOpen(true)}>
+        <HelpRounded className={classes.icon} />
+      </IconButton>
+      <Dialog classes={{paper: classes.paper}} onClose={() => setOpen(false)} open={open}>
+        <DialogTitle>
+          <h2>What does this app do?</h2>
+        </DialogTitle>
+        <DialogContent className={classes.content}>
+          Job searching is definitely not much fun, not to mention the time and
+          effort it takes to organize all your job applications and remember what
+          companies you applied to.
+          <br/>
+          <br/>
+          Thats where W5H comes in handy;
+          W5H, which stands for Who, What, When, Where, Why, How, helps job seekers
+          organize their job applications. Yes, you could use Excel or Sheets,
+          but whats the fun in that?
+        </DialogContent>
+      </Dialog>
+    </>
+  )
 }

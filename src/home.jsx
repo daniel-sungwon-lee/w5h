@@ -63,6 +63,7 @@ export default function Home (props) {
   }, [props.userId]);
 
   const handleCheckbox = (e) => {
+    setLoading(true)
     let appId = parseInt(e.target.id)
 
     if (e.target.checked) {
@@ -79,7 +80,10 @@ export default function Home (props) {
           fetch(`/api/applications/${props.userId}`)
             .then(res => res.json())
             .then(data => {
+
               setData(data)
+              setLoading(false)
+
             })
             .catch(() => window.location.reload())
         })
@@ -99,7 +103,10 @@ export default function Home (props) {
           fetch(`/api/applications/${props.userId}`)
             .then(res => res.json())
             .then(data => {
+
               setData(data)
+              setLoading(false)
+
             })
             .catch(() => window.location.reload())
         })
