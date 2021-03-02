@@ -21,6 +21,9 @@ const customCalendarTheme = createMuiTheme({
       daySelected: {
         backgroundColor: "#1db954 !important"
       },
+      current: {
+        color: "#1db954"
+      }
     },
     MuiTypography: {
       colorPrimary: {
