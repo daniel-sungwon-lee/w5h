@@ -30,7 +30,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "nodemon public/index.js",
+    "server": "nodemon server/index.js",
     "db:import": "bash scripts/db-import.bash"
   },
   "proxy": "http://localhost:3001/",
