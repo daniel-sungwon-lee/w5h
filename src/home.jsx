@@ -58,24 +58,54 @@ export default function Home (props) {
         setData(data)
         setLoading(false)
       })
+      .catch(() => window.location.reload())
 
   }, [props.userId]);
 
   const handleCheckbox = (e) => {
     let appId = parseInt(e.target.id)
 
-    const selected = data.filter(app => {
-      return appId === app.applicationId
-    })
+    if (e.target.checked) {
+      const reqBody = {isChecked: true}
 
-    if (selected[0].isChecked) {
-      selected[0].isChecked = false
+      fetch(`/api/application/${props.userId}/${appId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(reqBody)
+      })
+        .then(res => res.json())
+        .then(result => {
+
+          fetch(`/api/applications/${props.userId}`)
+            .then(res => res.json())
+            .then(data => {
+              setData(data)
+            })
+            .catch(() => window.location.reload())
+        })
+        .catch(() => window.location.reload())
 
     } else {
-      selected[0].isChecked = true
+      const reqBody = {isChecked: false}
+
+      fetch(`/api/application/${props.userId}/${appId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(reqBody)
+      })
+        .then(res => res.json())
+        .then(result => {
+
+          fetch(`/api/applications/${props.userId}`)
+            .then(res => res.json())
+            .then(data => {
+              setData(data)
+            })
+            .catch(() => window.location.reload())
+        })
+        .catch(() => window.location.reload())
+
     }
-
-
   }
 
   const handleDelete = (id) => () => {

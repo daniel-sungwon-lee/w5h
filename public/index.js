@@ -101,7 +101,7 @@ app.get('/api/applications/:userId', (req, res, next) => {
   const sql=`
   select * from "applications"
   where "userId" = $1
-  order by "isChecked",
+  order by "isChecked" desc,
   "when" desc
   `;
   const params = [userId];
