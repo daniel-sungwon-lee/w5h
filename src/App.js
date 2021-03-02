@@ -36,6 +36,8 @@ export default class App extends Component {
   }
 
   handleLogin(result) {
+    this.setState({loading: true})
+
     const { user, token } = result;
 
     this.setState({ user })

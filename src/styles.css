@@ -52,6 +52,9 @@
 .Mui-focused fieldset {
   border-color: #1db954 !important;
 }
+.MuiInput-root.MuiInput-underline:after {
+  border-bottom-color: black;
+}
 
 
 @media screen and (max-width: 767px) {
