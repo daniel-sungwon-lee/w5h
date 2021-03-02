@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Drawer, IconButton, List, ListItem, AppBar, Icon, Button } from '@material-ui/core';
+import { Drawer, IconButton, List, ListItem, AppBar, Icon, Button, Tooltip } from '@material-ui/core';
 import { MenuRounded, PowerSettingsNewRounded, HomeRounded } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,6 +15,12 @@ const useStyles = makeStyles({
   },
   icons: {
     fontSize: "3rem"
+  },
+  toolTip: {
+    backgroundColor: "#F50057"
+  },
+  arrow: {
+    color: "#F50057"
   }
 })
 
@@ -51,15 +57,17 @@ export default function Nav (props) {
                 </Button>
               </Link>
               <Link to="/auth" className="text-decoration-none" onClick={() => props.handleAppId(null)}>
-                <Button className="p-0" fullWidth color="secondary">
-                  <ListItem className="d-flex justify-content-center py-3" onClick={props.handleSignOut}>
-                    <h3 className="m-0" onClick={toggleDrawer("left", false)}>
-                      <Icon color="secondary">
-                        <PowerSettingsNewRounded className={classes.icons} />
-                      </Icon>
-                    </h3>
-                  </ListItem>
-                </Button>
+                <Tooltip arrow title="Logout" classes={{tooltip: classes.toolTip, arrow: classes.arrow}}>
+                  <Button className="p-0" fullWidth color="secondary">
+                    <ListItem className="d-flex justify-content-center py-3" onClick={props.handleSignOut}>
+                      <h3 className="m-0" onClick={toggleDrawer("left", false)}>
+                        <Icon color="secondary">
+                          <PowerSettingsNewRounded className={classes.icons} />
+                        </Icon>
+                      </h3>
+                    </ListItem>
+                  </Button>
+                </Tooltip>
               </Link>
             </List>
           </div>

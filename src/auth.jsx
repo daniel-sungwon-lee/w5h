@@ -1,7 +1,7 @@
 import './styles.css';
 import React, { Component, useState } from 'react';
 import { TextField, IconButton, CircularProgress, Fade, Dialog,
-         DialogTitle, DialogContent } from '@material-ui/core';
+         DialogTitle, DialogContent, Tooltip } from '@material-ui/core';
 import { ExitToAppRounded, PersonAddRounded, ArrowBackRounded,
          HelpRounded, VpnKeyRounded } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
@@ -162,16 +162,20 @@ export default class Auth extends Component {
           <div className="d-flex mt-4 w-100 justify-content-center">
             <Fade in timeout={2000}>
               <div className="mx-2">
-                <IconButton onClick={this.handleSwitch}>
-                  <PersonAddRounded style={{color: "black"}} fontSize="large" />
-                </IconButton>
+                <Tooltip arrow title="Sign up">
+                  <IconButton onClick={this.handleSwitch}>
+                    <PersonAddRounded style={{color: "black"}} fontSize="large" />
+                  </IconButton>
+                </Tooltip>
               </div>
             </Fade>
             <Fade in timeout={2500}>
               <div className="mx-2">
-                <IconButton onClick={this.handleKey}>
-                  <VpnKeyRounded fontSize="large" className="text-dark" />
-                </IconButton>
+                <Tooltip arrow title="Demo login">
+                  <IconButton onClick={this.handleKey}>
+                    <VpnKeyRounded fontSize="large" className="text-dark" />
+                  </IconButton>
+                </Tooltip>
               </div>
             </Fade>
           </div>
