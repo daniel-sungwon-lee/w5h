@@ -6,6 +6,9 @@ Technologies used: React.js (Create-React-App, React Router, React Hooks), npm, 
 ## Live Link
 https://w5h.herokuapp.com/
 
+## Video Walkthrough
+https://youtu.be/dqO3EpFPPvc
+
 ## Quick Walkthrough
 
 ![w5h deployed demo](https://user-images.githubusercontent.com/72715781/109739534-97ee3a80-7b7e-11eb-8d05-7b4ae1e245df.gif)
