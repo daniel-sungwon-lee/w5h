@@ -195,12 +195,17 @@ app.patch('/api/application/:userId/:applicationId', (req, res, next) => {
     .catch(err => next(err))
 })
 
-//For Heroku React Router
-app.use((req, res) => {
-  res.sendFile('/index.html', {
-    root: path.join(__dirname, 'public')
+//for Heroku deployment
+if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+  app.use(express.static(path.join(__dirname, 'build')));
+
+  // Handle React routing, return all requests to React app
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
   });
-});
+}
+
 
 app.use(errorMiddleware);
 

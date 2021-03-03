@@ -236,8 +236,8 @@ export default class Auth extends Component {
 const useStyles = makeStyles({
   iconButton: {
     position: "absolute",
-    top: "2rem",
-    right: "2rem",
+    top: "0.5rem",
+    right: "0.5rem",
   },
   icon: {
     fontSize: "2.5rem",
@@ -268,15 +268,16 @@ function HelpDialog (props) {
           <h2>What does this app do?</h2>
         </DialogTitle>
         <DialogContent className={classes.content}>
-          Job searching is definitely not much fun, not to mention the time and
-          effort it takes to organize all your job applications and remember what
-          companies you applied to.
-          <br/>
-          <br/>
-          Thats where W5H comes in handy;
-          W5H, which stands for Who, What, When, Where, Why, How, helps job seekers
-          organize their job applications. Yes, you could use Excel or Sheets,
-          but whats the fun in that?
+          <p>
+            Job searching is definitely not much fun, not to mention the time and
+            effort it takes just to keep track of all your job applications and
+            remember what companies you applied to.
+          </p>
+          <p>
+            Thats where W5H comes in handy; W5H&mdash;which stands for Who, What,
+            When, Where, Why, How&mdash;helps job seekers keep track of their job
+            applications. Yes, you could use Excel or Sheets, but whats the fun in that?
+          </p>
         </DialogContent>
       </Dialog>
     </>
