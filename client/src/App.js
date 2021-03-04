@@ -70,6 +70,10 @@ export default class App extends Component {
       return <Auth handleLogin={this.handleLogin} />
     }
 
+    if (window.location.pathname === "/auth" && this.state.user) {
+      window.location.pathname = "/"
+    }
+
     return (
       <div className="App">
         <Router>
