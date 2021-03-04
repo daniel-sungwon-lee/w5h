@@ -28,6 +28,10 @@ https://youtu.be/dqO3EpFPPvc
 
 ![w5h deployed demo](https://user-images.githubusercontent.com/72715781/109739534-97ee3a80-7b7e-11eb-8d05-7b4ae1e245df.gif)
 
+## Planning
+[DB Designer](https://dbdesigner.page.link/B6hyxBbgg75m3LT49)
+
+[Figma (I kinda stopped after auth because I was so eager to get coding)](https://www.figma.com/file/vMUUuRJR3N8KN9BvBc1Sfa/W5H?node-id=0%3A1)
 
 <!---![w5h WIP demo 2](https://user-images.githubusercontent.com/72715781/109616603-35e3f580-7aea-11eb-9b02-44e04ce51086.gif)-->
 
