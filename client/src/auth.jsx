@@ -3,7 +3,7 @@ import React, { Component, useState } from 'react';
 import { TextField, IconButton, CircularProgress, Fade, Dialog,
          DialogTitle, DialogContent, Tooltip } from '@material-ui/core';
 import { ExitToAppRounded, PersonAddRounded, ArrowBackRounded,
-         HelpRounded, VpnKeyRounded } from '@material-ui/icons';
+         HelpRounded, VpnKeyRounded, CloseRounded } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 
 export default class Auth extends Component {
@@ -239,6 +239,11 @@ const useStyles = makeStyles({
     top: "0.5rem",
     right: "0.5rem",
   },
+  close : {
+    position: "absolute",
+    top: "1rem",
+    right: "1rem"
+  },
   icon: {
     fontSize: "2.5rem",
     color: "black",
@@ -264,6 +269,9 @@ function HelpDialog (props) {
         <HelpRounded className={classes.icon} />
       </IconButton>
       <Dialog classes={{paper: classes.paper}} onClose={() => setOpen(false)} open={open}>
+        <IconButton className={classes.close} onClick={()=> setOpen(false)}>
+          <CloseRounded className={classes.icon} />
+        </IconButton>
         <DialogTitle>
           <h2>What does this app do?</h2>
         </DialogTitle>
