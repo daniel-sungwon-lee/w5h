@@ -64,10 +64,19 @@ export default function Home (props) {
   }, [props.userId]);
 
   const handleCheckbox = (e) => {
-    setLoading(true)
     let appId = parseInt(e.target.id)
 
     if (e.target.checked) {
+      const updatedData = data.map(app => {
+        if (app.applicationId === appId) {
+          app.isChecked = true
+          return app
+        } else {
+          return app
+        }
+      })
+      setData(updatedData)
+
       const reqBody = {isChecked: true}
 
       fetch(`/api/application/${props.userId}/${appId}`, {
@@ -75,22 +84,19 @@ export default function Home (props) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(reqBody)
       })
-        .then(res => res.json())
-        .then(result => {
-
-          fetch(`/api/applications/${props.userId}`)
-            .then(res => res.json())
-            .then(data => {
-
-              setData(data)
-              setLoading(false)
-
-            })
-            .catch(() => window.location.reload())
-        })
         .catch(() => window.location.reload())
 
     } else {
+      const updatedData = data.map(app => {
+        if (app.applicationId === appId) {
+          app.isChecked = false
+          return app
+        } else {
+          return app
+        }
+      })
+      setData(updatedData)
+
       const reqBody = {isChecked: false}
 
       fetch(`/api/application/${props.userId}/${appId}`, {
@@ -98,19 +104,6 @@ export default function Home (props) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(reqBody)
       })
-        .then(res => res.json())
-        .then(result => {
-
-          fetch(`/api/applications/${props.userId}`)
-            .then(res => res.json())
-            .then(data => {
-
-              setData(data)
-              setLoading(false)
-
-            })
-            .catch(() => window.location.reload())
-        })
         .catch(() => window.location.reload())
 
     }
@@ -155,7 +148,7 @@ export default function Home (props) {
                     popupState => (
                       <ListItem key={applicationId} button className={classes.listItemCard}>
                         <div>
-                          <Checkbox fontSize="large" onClick={handleCheckbox} classes={{
+                          <Checkbox fontSize="large" onChange={handleCheckbox} classes={{
                            checked: classes.checkbox
                           }} checkedIcon={<CheckBoxRounded />} icon={<IndeterminateCheckBoxRounded />}
                            edge="end" checked={isChecked} color="default" id={applicationId.toString()} />
