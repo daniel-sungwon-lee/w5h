@@ -227,7 +227,7 @@ export default class Entry extends Component {
                   <KeyboardDatePicker
                     id="when"
                     fullWidth
-                    helperText="Date applied"
+                    helperText="Date Applied"
                     margin="normal"
                     autoOk
                     variant="inline"

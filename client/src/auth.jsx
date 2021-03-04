@@ -104,8 +104,8 @@ export default class Auth extends Component {
 
   handleKey() {
     this.setState({
-      email: "demo@user",
-      password: "demouser"
+      email: "demo@Usr",
+      password: "somethingHard"
     })
   }
 
