@@ -63,6 +63,9 @@
   border-bottom-color: black;
 }
 
+.MuiPaper-root.MuiPaper-rounded {
+  border-radius: 3rem;
+}
 
 @media screen and (max-width: 767px) {
   .logo {

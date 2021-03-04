@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CircularProgress, Paper, Tooltip, IconButton, Grow } from '@material-ui/core'
+import { CircularProgress, Paper, Tooltip, IconButton, Grow, Card } from '@material-ui/core'
 import { ArrowBackRounded } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 
@@ -66,39 +66,51 @@ export default class Application extends Component {
                   <div className="text-left pb-5 mb-5">
                     <div className="px-5 py-3">
                       <Tooltip arrow title="What" placement="right">
-                        <h3 className="fit-content">Position</h3>
+                        <h3 className="fit-content">Position Title</h3>
                       </Tooltip>
-                      <h5>{what}</h5>
+                      <Card className="h5 p-4">
+                        {what}
+                      </Card>
                     </div>
                     <div className="px-5 py-3">
                       <Tooltip arrow title="When" placement="right">
                         <h3 className="fit-content">Date applied</h3>
                       </Tooltip>
-                      <h5>{date}</h5>
+                      <Card className="h5 p-4">
+                        {date}
+                      </Card>
                     </div>
                     <div className="px-5 py-3">
                       <Tooltip arrow title="Where" placement="right">
-                        <h3 className="fit-content">Location</h3>
+                        <h3 className="fit-content">Job Location</h3>
                       </Tooltip>
-                      <h5>{where}</h5>
+                      <Card className="h5 p-4">
+                        {where}
+                      </Card>
                     </div>
                     <div className="px-5 py-3">
                       <Tooltip arrow title="Why" placement="right">
-                        <h3 className="fit-content">Reason</h3>
+                        <h3 className="fit-content">Reason for Applying</h3>
                       </Tooltip>
-                      <h5>{why}</h5>
+                      <Card className="h5 p-4">
+                        {why}
+                      </Card>
                     </div>
                     <div className="px-5 py-3">
                       <Tooltip arrow title="How" placement="right">
-                        <h3 className="fit-content">Method of application</h3>
+                        <h3 className="fit-content">Method of Application</h3>
                       </Tooltip>
-                      <h5>{how}</h5>
+                      <Card className="h5 p-4">
+                        {how}
+                      </Card>
                     </div>
                     <div className="px-5 pt-3 pb-5">
                       <Tooltip arrow title="Status" placement="right">
                         <h3 className="fit-content">Application status</h3>
                       </Tooltip>
-                      <h5>{status}</h5>
+                      <Card className="h5 p-4">
+                        {status}
+                      </Card>
                     </div>
                   </div>
                 </Paper>
