@@ -63,7 +63,7 @@
   border-bottom-color: black;
 }
 
-.MuiPaper-root.MuiPaper-rounded {
+.MuiPaper-root.MuiCard-root.MuiPaper-rounded {
   border-radius: 3rem;
 }
 

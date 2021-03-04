@@ -12,6 +12,16 @@ import './styles.css'
 
 const customCalendarTheme = createMuiTheme({
   overrides: {
+    MuiPaper: {
+      rounded: {
+        borderRadius: "1.5rem"
+      },
+    },
+    MuiPickersCalendar: {
+      transitionContainer: {
+        marginBottom: "1rem"
+      },
+    },
     MuiPickersToolbar: {
       toolbar: {
         backgroundColor: "#1db954"
