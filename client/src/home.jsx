@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { IconButton, List, ListItem, Fab, CircularProgress, Button,
-         ListItemText, Checkbox, Menu, MenuItem, Zoom, Grow, Popover } from '@material-ui/core';
+         ListItemText, Checkbox, Menu, MenuItem, Zoom, Grow, Popover,
+         ClickAwayListener } from '@material-ui/core';
 import PopupState, { bindTrigger, bindMenu, bindPopover } from 'material-ui-popup-state';
 import { AddRounded, MoreVertRounded, DeleteRounded, EditRounded,
          CheckBoxRounded, IndeterminateCheckBoxRounded } from '@material-ui/icons';
@@ -63,10 +64,19 @@ export default function Home (props) {
   }, [props.userId]);
 
   const handleCheckbox = (e) => {
-    setLoading(true)
     let appId = parseInt(e.target.id)
 
     if (e.target.checked) {
+      const updatedData = data.map(app => {
+        if (app.applicationId === appId) {
+          app.isChecked = true
+          return app
+        } else {
+          return app
+        }
+      })
+      setData(updatedData)
+
       const reqBody = {isChecked: true}
 
       fetch(`/api/application/${props.userId}/${appId}`, {
@@ -74,22 +84,19 @@ export default function Home (props) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(reqBody)
       })
-        .then(res => res.json())
-        .then(result => {
-
-          fetch(`/api/applications/${props.userId}`)
-            .then(res => res.json())
-            .then(data => {
-
-              setData(data)
-              setLoading(false)
-
-            })
-            .catch(() => window.location.reload())
-        })
         .catch(() => window.location.reload())
 
     } else {
+      const updatedData = data.map(app => {
+        if (app.applicationId === appId) {
+          app.isChecked = false
+          return app
+        } else {
+          return app
+        }
+      })
+      setData(updatedData)
+
       const reqBody = {isChecked: false}
 
       fetch(`/api/application/${props.userId}/${appId}`, {
@@ -97,19 +104,6 @@ export default function Home (props) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(reqBody)
       })
-        .then(res => res.json())
-        .then(result => {
-
-          fetch(`/api/applications/${props.userId}`)
-            .then(res => res.json())
-            .then(data => {
-
-              setData(data)
-              setLoading(false)
-
-            })
-            .catch(() => window.location.reload())
-        })
         .catch(() => window.location.reload())
 
     }
@@ -154,7 +148,7 @@ export default function Home (props) {
                     popupState => (
                       <ListItem key={applicationId} button className={classes.listItemCard}>
                         <div>
-                          <Checkbox fontSize="large" onClick={handleCheckbox} classes={{
+                          <Checkbox fontSize="large" onChange={handleCheckbox} classes={{
                            checked: classes.checkbox
                           }} checkedIcon={<CheckBoxRounded />} icon={<IndeterminateCheckBoxRounded />}
                            edge="end" checked={isChecked} color="default" id={applicationId.toString()} />
@@ -181,37 +175,41 @@ export default function Home (props) {
                               <Link to={`/entry/${applicationId}`} className="text-decoration-none"
                                onClick={() => props.handleAppId(applicationId)}>
                                 <MenuItem dense>
-                                  <IconButton className="p-2">
+                                  <div className="p-2">
                                     <EditRounded className={classes.icons} fontSize="large" />
-                                  </IconButton>
+                                  </div>
                                 </MenuItem>
                               </Link>
 
-                              <MenuItem dense>
+                              <ClickAwayListener onClickAway={popupState.close}>
                                 <PopupState id="popover" variant="popover">
                                   {
                                     popupState2 => (
-                                      <>
-                                        <IconButton className="p-2" {...bindTrigger(popupState2)}>
+                                      <MenuItem dense {...bindTrigger(popupState2)}>
+                                        <div className="p-2">
                                           <DeleteRounded
                                           color="secondary" fontSize="large" />
-                                        </IconButton>
+                                        </div>
 
-                                        <Popover {...bindPopover(popupState2)}
+                                        <Popover {...bindPopover(popupState2)} classes={{
+                                            paper: classes.popup
+                                          }}
                                           anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                                           transformOrigin={{ vertical: 'top', horizontal: 'right' }}>
 
-                                          <Button onClick={handleDelete(applicationId)} variant="contained"
-                                          color="secondary">
-                                            Delete?
-                                          </Button>
+                                          <ClickAwayListener onClickAway={popupState2.close}>
+                                            <Button onClick={handleDelete(applicationId)} variant="contained"
+                                            color="secondary">
+                                              Delete?
+                                            </Button>
+                                          </ClickAwayListener>
 
                                         </Popover>
-                                      </>
+                                      </MenuItem>
                                     )
                                   }
                                 </PopupState>
-                              </MenuItem>
+                              </ClickAwayListener>
 
                             </div>
                           </Menu>

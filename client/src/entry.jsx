@@ -12,6 +12,16 @@ import './styles.css'
 
 const customCalendarTheme = createMuiTheme({
   overrides: {
+    MuiPaper: {
+      rounded: {
+        borderRadius: "1.5rem"
+      },
+    },
+    MuiPickersCalendar: {
+      transitionContainer: {
+        marginBottom: "1rem"
+      },
+    },
     MuiPickersToolbar: {
       toolbar: {
         backgroundColor: "#1db954"
@@ -95,7 +105,9 @@ export default class Entry extends Component {
   }
 
   handleDateChange(date) {
-    this.setState({ date: date })
+    const strDate = date.toLocaleDateString()
+
+    this.setState({ date: strDate })
   }
 
   handleSubmit(e) {
@@ -104,7 +116,6 @@ export default class Entry extends Component {
 
     const { who, what, date, where, why, how, status, appId } = this.state
     const userId = this.props.user.userId
-
 
     if (this.state.appId) {
       const reqBody = { who, what, date, where, why, how, status }
@@ -158,7 +169,11 @@ export default class Entry extends Component {
                     <IconButton {...bindTrigger(popupState)}>
                       <BlockRounded color="secondary" style={{ fontSize: "3.5rem" }} />
                     </IconButton>
-                    <Popover {...bindPopover(popupState)}
+                    <Popover {...bindPopover(popupState)} PaperProps={{
+                       style: {
+                         borderRadius: "3rem"
+                       }
+                     }}
                      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
                     >
@@ -182,7 +197,7 @@ export default class Entry extends Component {
               <TextField
                 id="who"
                 label="Who"
-                helperText="Ex: Google"
+                helperText="Company Name"
                 fullWidth
                 required
                 value={this.state.who}
@@ -196,7 +211,7 @@ export default class Entry extends Component {
               <TextField
                 id="what"
                 label="What"
-                helperText="Ex: Software Engineer"
+                helperText="Position Title"
                 fullWidth
                 required
                 value={this.state.what}
@@ -228,7 +243,7 @@ export default class Entry extends Component {
               <TextField
                 id="where"
                 label="Where"
-                helperText="Ex: Irvine, CA"
+                helperText="Job Location"
                 fullWidth
                 required
                 value={this.state.where}
@@ -242,7 +257,7 @@ export default class Entry extends Component {
               <TextField
                 id="why"
                 label="Why"
-                helperText="Ex: Great culture and compensation"
+                helperText="Reason for Applying"
                 fullWidth
                 required
                 value={this.state.why}
@@ -256,7 +271,7 @@ export default class Entry extends Component {
               <TextField
                 id="how"
                 label="How"
-                helperText="Ex: Through Linkedin"
+                helperText="Method of Application"
                 fullWidth
                 required
                 value={this.state.how}
@@ -270,7 +285,7 @@ export default class Entry extends Component {
               <TextField
                 id="status"
                 label="Status"
-                helperText="Current status of job application"
+                helperText="Current Status of Job Application"
                 fullWidth
                 required
                 value={this.state.status}
