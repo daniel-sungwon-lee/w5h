@@ -105,7 +105,9 @@ export default class Entry extends Component {
   }
 
   handleDateChange(date) {
-    this.setState({ date })
+    const strDate = date.toLocaleDateString()
+
+    this.setState({ date: strDate })
   }
 
   handleSubmit(e) {
@@ -114,7 +116,6 @@ export default class Entry extends Component {
 
     const { who, what, date, where, why, how, status, appId } = this.state
     const userId = this.props.user.userId
-
 
     if (this.state.appId) {
       const reqBody = { who, what, date, where, why, how, status }
@@ -168,7 +169,11 @@ export default class Entry extends Component {
                     <IconButton {...bindTrigger(popupState)}>
                       <BlockRounded color="secondary" style={{ fontSize: "3.5rem" }} />
                     </IconButton>
-                    <Popover {...bindPopover(popupState)}
+                    <Popover {...bindPopover(popupState)} PaperProps={{
+                       style: {
+                         borderRadius: "3rem"
+                       }
+                     }}
                      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
                     >

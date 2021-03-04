@@ -198,7 +198,9 @@ export default function Home (props) {
                                           color="secondary" fontSize="large" />
                                         </div>
 
-                                        <Popover {...bindPopover(popupState2)}
+                                        <Popover {...bindPopover(popupState2)} classes={{
+                                            paper: classes.popup
+                                          }}
                                           anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                                           transformOrigin={{ vertical: 'top', horizontal: 'right' }}>
 
