@@ -7,6 +7,7 @@ import { AddRounded, MoreVertRounded, DeleteRounded, EditRounded,
          CheckBoxRounded, IndeterminateCheckBoxRounded } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom';
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 import './styles.css'
 
@@ -26,7 +27,8 @@ const useStyles = makeStyles({
   listItemCard: {
     boxShadow: "0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)",
     margin: "3rem 0",
-    borderRadius: "1.5rem"
+    borderRadius: "1.5rem",
+    backgroundColor: "white"
   },
   popup: {
     borderRadius: "3rem"
@@ -123,6 +125,10 @@ export default function Home (props) {
       .catch(()=> window.location.reload());
   }
 
+  const onDragEnd = (result) => () => {
+
+  }
+
   if (loading) {
     return (
       <div className="spinner">
@@ -137,91 +143,110 @@ export default function Home (props) {
         <h2 className="m-0 h2">Jobs Applied</h2>
       </Zoom>
       <Zoom in style={{transitionDelay: "300ms"}}>
-        <List className={classes.listItem}>
+        <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="initial">
           {
-            data.map(app => {
-              const { applicationId, who, what, isChecked } = app
+            provided => (
+              <List className={classes.listItem} innerRef={provided.innerRef} {...provided.droppableProps}>
+                {
+                  data.map(app => {
+                    const { applicationId, who, what, isChecked } = app
 
-              return (
-                <PopupState key={applicationId} id="menu" variant="popover">
-                  {
-                    popupState => (
-                      <ListItem key={applicationId} button className={classes.listItemCard}>
-                        <div>
-                          <Checkbox fontSize="large" onChange={handleCheckbox} classes={{
-                           checked: classes.checkbox
-                          }} checkedIcon={<CheckBoxRounded />} icon={<IndeterminateCheckBoxRounded />}
-                           edge="end" checked={isChecked} color="default" id={applicationId.toString()} />
-                        </div>
-                        <Link to={`/application/${applicationId}`} className="text-decoration-none w-100"
-                         onClick={() => props.handleAppId(applicationId)}>
-                          <ListItemText className="text-dark" inset primary={who} secondary={what} />
-                        </Link>
-                        <div>
+                    return (
+                      <PopupState key={applicationId} id="menu" variant="popover">
+                        {
+                          popupState => (
+                            <Draggable draggableId={applicationId.toString()} index={applicationId}>
+                              {
+                                provided => (
+                                  <ListItem key={applicationId} button className={classes.listItemCard}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                    innerRef={provided.innerRef}
+                                   >
+                                    <div>
+                                      <Checkbox fontSize="large" onChange={handleCheckbox} classes={{
+                                      checked: classes.checkbox
+                                      }} checkedIcon={<CheckBoxRounded />} icon={<IndeterminateCheckBoxRounded />}
+                                      edge="end" checked={isChecked} color="default" id={applicationId.toString()} />
+                                    </div>
+                                    <Link to={`/application/${applicationId}`} className="text-decoration-none w-100"
+                                    onClick={() => props.handleAppId(applicationId)}>
+                                      <ListItemText className="text-dark" inset primary={who} secondary={what} />
+                                    </Link>
+                                    <div>
 
-                          <IconButton {...bindTrigger(popupState)}>
-                            <MoreVertRounded fontSize="large" />
-                          </IconButton>
+                                      <IconButton {...bindTrigger(popupState)}>
+                                        <MoreVertRounded fontSize="large" />
+                                      </IconButton>
 
-                          <Menu {...bindMenu(popupState)} classes={{
-                              paper: classes.popup
-                            }}
-                            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-                            getContentAnchorEl={null}
-                            >
-                            <div>
+                                      <Menu {...bindMenu(popupState)} classes={{
+                                          paper: classes.popup
+                                        }}
+                                        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                                        getContentAnchorEl={null}
+                                        >
+                                        <div>
 
-                              <Link to={`/entry/${applicationId}`} className="text-decoration-none"
-                               onClick={() => props.handleAppId(applicationId)}>
-                                <MenuItem dense>
-                                  <div className="p-2">
-                                    <EditRounded className={classes.icons} fontSize="large" />
-                                  </div>
-                                </MenuItem>
-                              </Link>
+                                          <Link to={`/entry/${applicationId}`} className="text-decoration-none"
+                                          onClick={() => props.handleAppId(applicationId)}>
+                                            <MenuItem dense>
+                                              <div className="p-2">
+                                                <EditRounded className={classes.icons} fontSize="large" />
+                                              </div>
+                                            </MenuItem>
+                                          </Link>
 
-                              <ClickAwayListener onClickAway={popupState.close}>
-                                <PopupState id="popover" variant="popover">
-                                  {
-                                    popupState2 => (
-                                      <MenuItem dense {...bindTrigger(popupState2)}>
-                                        <div className="p-2">
-                                          <DeleteRounded
-                                          color="secondary" fontSize="large" />
-                                        </div>
+                                          <ClickAwayListener onClickAway={popupState.close}>
+                                            <PopupState id="popover" variant="popover">
+                                              {
+                                                popupState2 => (
+                                                  <MenuItem dense {...bindTrigger(popupState2)}>
+                                                    <div className="p-2">
+                                                      <DeleteRounded
+                                                      color="secondary" fontSize="large" />
+                                                    </div>
 
-                                        <Popover {...bindPopover(popupState2)} classes={{
-                                            paper: classes.popup
-                                          }}
-                                          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                                          transformOrigin={{ vertical: 'top', horizontal: 'right' }}>
+                                                    <Popover {...bindPopover(popupState2)} classes={{
+                                                        paper: classes.popup
+                                                      }}
+                                                      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                                      transformOrigin={{ vertical: 'top', horizontal: 'right' }}>
 
-                                          <ClickAwayListener onClickAway={popupState2.close}>
-                                            <Button onClick={handleDelete(applicationId)} variant="contained"
-                                            color="secondary">
-                                              Delete?
-                                            </Button>
+                                                      <ClickAwayListener onClickAway={popupState2.close}>
+                                                        <Button onClick={handleDelete(applicationId)} variant="contained"
+                                                        color="secondary">
+                                                          Delete?
+                                                        </Button>
+                                                      </ClickAwayListener>
+
+                                                    </Popover>
+                                                  </MenuItem>
+                                                )
+                                              }
+                                            </PopupState>
                                           </ClickAwayListener>
 
-                                        </Popover>
-                                      </MenuItem>
-                                    )
-                                  }
-                                </PopupState>
-                              </ClickAwayListener>
-
-                            </div>
-                          </Menu>
-                        </div>
-                      </ListItem>
+                                        </div>
+                                      </Menu>
+                                    </div>
+                                  </ListItem>
+                                )
+                              }
+                            </Draggable>
+                          )
+                        }
+                      </PopupState>
                     )
-                  }
-                </PopupState>
-              )
-            })
+                  })
+                }
+                {provided.placeholder}
+              </List>
+            )
           }
-        </List>
+        </Droppable>
+        </DragDropContext>
       </Zoom>
       <Zoom in>
         <div className={classes.empty}>
