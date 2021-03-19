@@ -12,7 +12,9 @@ import './styles.css'
 
 const useStyles = makeStyles({
   fab: {
-    background: "#D5F7C6"
+    background: "#1db954",
+    color: "white",
+    opacity: "0.8"
   },
   empty: {
     color: "black",
@@ -232,14 +234,12 @@ export default function Home (props) {
         </div>
       </Zoom>
       <Grow in>
-        <div className="w-100 d-flex justify-content-end">
-          <div className="fab">
-            <Link to="/entry" className="text-decoration-none">
-              <Fab id="fab-button" className={classes.fab}>
-                <AddRounded />
-              </Fab>
-            </Link>
-          </div>
+        <div className="fab">
+          <Link to="/entry" className="text-decoration-none">
+            <Fab id="fab-button" className={classes.fab}>
+              <AddRounded />
+            </Fab>
+          </Link>
         </div>
       </Grow>
     </div>
