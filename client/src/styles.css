@@ -1,9 +1,8 @@
 * {
-  font-family: Product Sans, sans-serif !important;
+  font-family: Google Sans, sans-serif !important;
 }
 .App {
   text-align: center;
-  font-family: Product Sans, sans-serif;
 }
 .spinner {
   position:absolute;
@@ -34,12 +33,15 @@
   margin: 5rem;
 }
 .fab {
-  width: fit-content;
+  position: fixed;
+  bottom: 12px;
+  right: 19px;
   padding: 12px;
 }
 #fab-button:hover{
-  background-color: #1db954;
-  color: white;
+  background-color: #D5F7C6;
+  color: black;
+  opacity: 1;
 }
 
 .fit-content {
