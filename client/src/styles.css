@@ -1,9 +1,8 @@
 * {
-  font-family: Product Sans, sans-serif !important;
+  font-family: Google Sans, sans-serif !important;
 }
 .App {
   text-align: center;
-  font-family: Product Sans, sans-serif;
 }
 .spinner {
   position:absolute;
