@@ -13,7 +13,7 @@ Technologies used: React.js (Create-React-App, React Router, React Hooks), npm, 
 I was inspired to make this when I was making an Excel sheet to organize my job applications during my job search, and realized I could break down each application using the W5H model. Also, I like building projects and learning new technologies more than DS/algorithms and interview prep, so it was a good excuse to put those off to the side (for now).
 
 ## Live Link
-https://w5h.herokuapp.com/
+https://w5h.up.railway.app/
 
 ## Features
 * Authentication/authorization (Login/Signup using email/password; JSON Web Tokens stored in local storage, password is also hashed)
