@@ -8,7 +8,7 @@
     "github": "https://github.com/daniel-sungwon-lee"
   },
   "dependencies": {
-    "argon2": "^0.27.1",
+    "argon2": "^0.27.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
@@ -19,7 +19,7 @@
     "server": "nodemon server/index.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "start": "node server/index.js",
-    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
+    "heroku-postbuild": "cd client && npm install --legacy-peer-deps && npm install --legacy-peer-deps --only=dev --no-shrinkwrap && npm run build",
     "db:import": "bash scripts/db-import.bash"
   },
   "devDependencies": {
